@@ -247,14 +247,14 @@ class ventanaListaUsuarios(object):
 
                 if filasSeleccionada:
                         # Se seleccionó al menos una fila
-                        self.BtnVerDatos.setEnabled(False)
-                        self.BtnEditar.setEnabled(False)
-                        self.BtnEliminar.setEnabled(False)
-                else:
-                        # No se seleccionó ninguna fila
                         self.BtnVerDatos.setEnabled(True)
                         self.BtnEditar.setEnabled(True)
                         self.BtnEliminar.setEnabled(True)
+                else:
+                        # No se seleccionó ninguna fila
+                        self.BtnVerDatos.setEnabled(False)
+                        self.BtnEditar.setEnabled(False)
+                        self.BtnEliminar.setEnabled(False)
 
 
         def obtenerUsuarioSeleccionado(self):
