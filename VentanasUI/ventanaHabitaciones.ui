@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Habitaciones</class>
+ <widget class="QMainWindow" name="Habitaciones">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>802</width>
+    <height>602</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Hotel</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../Recursos/HotelMascota.png</normaloff>../Recursos/HotelMascota.png</iconset>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="labelTitulo">
+    <property name="geometry">
+     <rect>
+      <x>-20</x>
+      <y>0</y>
+      <width>831</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>27</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);</string>
+    </property>
+    <property name="text">
+     <string>Habitaciones</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BtnAtras">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>15</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+border-radius: 10px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../Recursos/FotoBtnAtras.png</normaloff>../Recursos/FotoBtnAtras.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tablaHabitaciones">
+    <property name="geometry">
+     <rect>
+      <x>251</x>
+      <y>110</y>
+      <width>551</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>106</number>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>106</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Id</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Capacidad</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Separada</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tipo de Mascota</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Precio Base</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+   </widget>
+   <widget class="QLabel" name="labelFechaEstadia">
+    <property name="geometry">
+     <rect>
+      <x>4</x>
+      <y>113</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+</string>
+    </property>
+    <property name="text">
+     <string>Fecha de estadia</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="margin">
+     <number>4</number>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEditDesde">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>161</y>
+      <width>110</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelDesde">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>156</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Desde </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelHasta">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>206</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Hasta</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEditHasta">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>211</y>
+      <width>110</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSizeMascota">
+    <property name="geometry">
+     <rect>
+      <x>4</x>
+      <y>261</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+</string>
+    </property>
+    <property name="text">
+     <string>Tamaño de la mascota</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="margin">
+     <number>4</number>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxSizeMascota">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>310</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elegir</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Muy pequeño</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Pequeño</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mediano</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Grande</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Muy grande</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="labelMascotaPeligrosa">
+    <property name="geometry">
+     <rect>
+      <x>3</x>
+      <y>363</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+</string>
+    </property>
+    <property name="text">
+     <string>Mascota peligrosa</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="margin">
+     <number>4</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BtnAceptar">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>547</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 177, 15);
+border-radius:15px;</string>
+    </property>
+    <property name="text">
+     <string>Aceptar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BtnAplicarFiltros">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>549</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+border-radius:15px;
+</string>
+    </property>
+    <property name="text">
+     <string>Aplicar Filtros</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxMascotaPeligrosa">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>410</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elegir</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Si</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>No</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="labelTipoMascota">
+    <property name="geometry">
+     <rect>
+      <x>3</x>
+      <y>453</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+</string>
+    </property>
+    <property name="text">
+     <string>Tipo de mascota</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="margin">
+     <number>4</number>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxTipoMascota">
+    <property name="geometry">
+     <rect>
+      <x>21</x>
+      <y>500</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elegir</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Perro</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Gato</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Roedor</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Otro</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
