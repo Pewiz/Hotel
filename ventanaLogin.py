@@ -120,7 +120,7 @@ class ventanaLogin(object):
 
         def verificar_credenciales(self, rut, contraseña):
                 #hay que poner el directorio exacto
-                with open('C:/Users/marti/OneDrive/Documentos/programacion/Hotel-main/ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
+                with open('ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
                         reader = csv.reader(file)
                         next(reader) 
                         for row in reader:
@@ -129,7 +129,7 @@ class ventanaLogin(object):
                                         return True
                 return False
         def verificar_admin(self,rut,contraseña):
-                with open('C:/Users/marti/OneDrive/Documentos/programacion/Hotel-main/ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
+                with open('ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
                         reader = csv.reader(file)
                         next(reader)
                         for row in reader:
