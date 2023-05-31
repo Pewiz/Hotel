@@ -155,7 +155,7 @@ class ventanaListaCliente(object):
                 self.BtnAceptar.setObjectName("BtnAceptar")
 
                 #Accion Boton Aceptar
-                self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaCliente, self.obtenerClienteSeleccionado()))
+                self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaMascotas, self.obtenerClienteSeleccionado()))
 
                 self.labelClientesAgregados = QtWidgets.QLabel(self.centralwidget)
                 self.labelClientesAgregados.setGeometry(QtCore.QRect(29, 114, 481, 31))
