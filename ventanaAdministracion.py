@@ -13,11 +13,10 @@ from ventanaHabitaciones import ventanaHabitaciones
 from ventanaListaUsuarios import ventanaListaUsuarios
 
 
-
-class ventanaAdministracion(object):
+class ventanaAdministracion(object,):
         def __init__(self, parent=None):
                 self.parent = parent
-        def setupUi(self, Administracion):
+        def setupUi(self, Administracion,verificacion_admin):
                 Administracion.setObjectName("Administracion")
                 Administracion.resize(802, 602)
                 Administracion.setMinimumSize(QtCore.QSize(802, 602))
@@ -65,6 +64,7 @@ class ventanaAdministracion(object):
                 self.BtnGestionDeHabitacion.clicked.connect(lambda:self.cambiar_ventana(ventanaHabitaciones))
 
                 #Boton administracion de usuarios
+                
                 self.BtnAdministracionDeUsuarios = QtWidgets.QPushButton(self.centralwidget)
                 self.BtnAdministracionDeUsuarios.setGeometry(QtCore.QRect(91, 370, 271, 61))
                 font = QtGui.QFont()
@@ -74,7 +74,7 @@ class ventanaAdministracion(object):
                 self.BtnAdministracionDeUsuarios.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
                 self.BtnAdministracionDeUsuarios.setStyleSheet("background-color: rgb(79, 163, 166);\n" "border-radius: 10px;\n")
                 self.BtnAdministracionDeUsuarios.setObjectName("BtnAdministracionDeUsuarios")
-                
+                self.BtnAdministracionDeUsuarios.setEnabled(verificacion_admin)
                 #Accion boton administracion de usuarios
                 self.BtnAdministracionDeUsuarios.clicked.connect(lambda:self.cambiar_ventana(ventanaListaUsuarios))
 
