@@ -16,6 +16,8 @@ class ventanaMostrarMascota(object):
                 self.cliente_id = cliente_id
                 self.idHabitacion = idHabitacion
     def setupUi(self, MostrarMascota):
+        print(self.obtenerNombreMascota())
+        self.nombre_mascota = None
         MostrarMascota.setObjectName("MostrarMascota")
         MostrarMascota.resize(802, 602)
         icon = QtGui.QIcon()
@@ -40,7 +42,7 @@ class ventanaMostrarMascota(object):
         self.BtnAtras.setGeometry(QtCore.QRect(20, 15, 51, 51))
         self.BtnAtras.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.BtnAtras.setStyleSheet("background-color: rgb(79, 163, 166);\n"
-"border-radius: 10px;")
+    "border-radius: 10px;")
         self.BtnAtras.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -58,7 +60,7 @@ class ventanaMostrarMascota(object):
         font.setPointSize(13)
         self.labelDatosMascota.setFont(font)
         self.labelDatosMascota.setStyleSheet("background-color: rgb(79, 163, 166);\n"
-"border-radius: 18%;")
+    "border-radius: 18%;")
         self.labelDatosMascota.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.labelDatosMascota.setIndent(29)
         self.labelDatosMascota.setObjectName("labelDatosMascota")
@@ -212,7 +214,7 @@ class ventanaMostrarMascota(object):
 
         self.retranslateUi(MostrarMascota)
         QtCore.QMetaObject.connectSlotsByName(MostrarMascota)
-        self.obtener_datos_mascotas() 
+        self.obtener_datos_mascota() 
 
     def retranslateUi(self, MostrarMascota):
         _translate = QtCore.QCoreApplication.translate
@@ -238,23 +240,45 @@ class ventanaMostrarMascota(object):
         self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
         self.ventanaAnterior.show()
 
-    def obtener_datos_mascotas(self):
+    def obtenerNombreMascota(self):
+        nombre_mascota = None  # Inicializar la variable fuera del ciclo
+        
+        with open('ArchivosCSV/Mascotas.csv', 'r') as archivo:
+            reader = csv.reader(archivo)
+            for row in reader:
+                nombre_mascota = row[1]
+        
+        return nombre_mascota  # Retornar la variable después del ciclo
+
+
+
+    def obtener_datos_mascota(self):
+        nombre_mascota = self.obtenerNombreMascota()  # Obtén el nombre de la mascota desde algún lugar
+        
+        # Abrir y leer el archivo CSV
         with open('ArchivosCSV/Mascotas.csv', 'r') as file:
             reader = csv.reader(file)
+            next(reader)  # Saltar la primera línea si contiene encabezados
+            
+            # Buscar la mascota correspondiente al nombre de la mascota
             for row in reader:
-                if row[0] == self.cliente_id:
-                    self.outputNombre.setText(row[1])
-                    self.outputNombre.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputEspecie.setText(row[2])
-                    self.outputEspecie.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputRaza.setText(row[3])
-                    self.outputRaza.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputFechaDeNacimiento.setText(row[4])
-                    self.outputFechaDeNacimiento.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputSexo.setText(row[5])
-                    self.outputSexo.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputSize.setText(row[6])
-                    self.outputSize.setAlignment(QtCore.Qt.AlignCenter)  
-                    self.outputPeso.setText(row[7])
-                    self.outputPeso.setAlignment(QtCore.Qt.AlignCenter)  
-                    break
+                if row[1] == nombre_mascota:
+                    # Obtener los datos de la mascota
+                    nombre = row[1]
+                    especie = row[2]
+                    raza = row[3]
+                    fecha_nacimiento = row[4]
+                    sexo = row[5]
+                    size = row[6]
+                    peso = row[7]
+                    
+                    # Establecer los datos en los campos correspondientes
+                    self.outputNombre.setText(nombre)
+                    self.outputEspecie.setText(especie)
+                    self.outputRaza.setText(raza)
+                    self.outputFechaDeNacimiento.setText(fecha_nacimiento)
+                    self.outputSexo.setText(sexo)
+                    self.outputSize.setText(size)
+                    self.outputPeso.setText(peso)
+                    break  # Terminar el bucle después de encontrar la mascota
+

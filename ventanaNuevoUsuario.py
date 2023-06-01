@@ -299,9 +299,9 @@ class ventanaNuevoUsuario(object):
         def cambiar_a_ventana_anterior(self):
                 self.ventanaActual = QtWidgets.QApplication.activeWindow()
                 self.ventanaActual.close()
-                from ventanaAdministracion import ventanaAdministracion  # Importación local para evitar el ciclo de importación
+                from ventanaListaUsuarios import ventanaListaUsuarios  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaAdministracion()
+                self.uiVentanaAnterior = ventanaListaUsuarios()
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
 

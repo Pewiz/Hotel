@@ -205,25 +205,6 @@ border-radius: 18%;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="inputEspecie">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>240</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="inputRaza">
     <property name="geometry">
      <rect>
@@ -486,6 +467,41 @@ border-radius:15px;</string>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxEspecie">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>240</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elegir</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Perro</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Gato</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Roedor</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Otro</string>
+     </property>
+    </item>
    </widget>
   </widget>
  </widget>

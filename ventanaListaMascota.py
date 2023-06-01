@@ -10,12 +10,15 @@
 import csv
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanaMostrarDatosMascota import ventanaMostrarMascota
+from ventanaEditarMascota import ventanaEditarMascota
+from ventanaNuevaMascota import ventanaNuevaMascota
 
 class ventanaListaMascotas(object):
     def __init__(self, cliente_id, idHabitacion):
-                self.cliente_id = cliente_id
-                self.idHabitacion = idHabitacion
+        self.cliente_id = cliente_id
+        self.idHabitacion = idHabitacion
     def setupUi(self, ListaMascotas):
+        
         ListaMascotas.setObjectName("ListaMascotas")
         ListaMascotas.resize(802, 602)
         font = QtGui.QFont()
@@ -88,7 +91,9 @@ class ventanaListaMascotas(object):
         self.BtnEditar.setStyleSheet("background-color: rgb(251, 255, 0);\n" "border-radius:15px;")
         self.BtnEditar.setObjectName("BtnEditar")
 
-        
+        #Accion Boton Editar
+        self.BtnEditar.clicked.connect(lambda: self.cambiarVentana(ventanaEditarMascota, self.obtenerMascotaSeleccionada()))
+
 
         #Boton Eliminar
         self.BtnEliminar = QtWidgets.QPushButton(self.centralwidget)
@@ -102,6 +107,9 @@ class ventanaListaMascotas(object):
         self.BtnEliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.BtnEliminar.setStyleSheet("background-color: rgb(255, 0, 0);\n" "border-radius:15px;")
         self.BtnEliminar.setObjectName("BtnEliminar")
+
+        #Accion boton eliminar
+        self.BtnEliminar.clicked.connect(lambda: self.eliminarMascota(self.obtenerMascotaSeleccionada()))
 
         #Lista Mascota
         self.tablaListaMascotas = QtWidgets.QTableWidget(self.centralwidget)
@@ -153,6 +161,10 @@ class ventanaListaMascotas(object):
         self.BtnAceptar.setStyleSheet("background-color: rgb(79, 163, 166);\n" "border-radius:15px;")
         self.BtnAceptar.setObjectName("BtnAceptar")
 
+        #Accion Boton Aceptar
+        self.BtnAceptar.clicked.connect(self.aceptarClick)
+
+
         #Mascota de
         self.labelMascotasDe = QtWidgets.QLabel(self.centralwidget)
         self.labelMascotasDe.setGeometry(QtCore.QRect(29, 114, 481, 31))
@@ -164,6 +176,8 @@ class ventanaListaMascotas(object):
         self.labelMascotasDe.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.labelMascotasDe.setIndent(162)
         self.labelMascotasDe.setObjectName("labelMascotasDe")
+        
+
 
         #Boton Nueva Mascota
         self.BtnNuevaMascota = QtWidgets.QPushButton(self.centralwidget)
@@ -178,6 +192,8 @@ class ventanaListaMascotas(object):
         self.BtnNuevaMascota.setStyleSheet("background-color: rgb(79, 163, 166);")
         self.BtnNuevaMascota.setObjectName("BtnNuevaMascota")
 
+        #Accion Boton Nueva Mascota
+        self.BtnNuevaMascota.clicked.connect(lambda: self.cambiarVentanaNuevaMascota())
 
         self.labelNombreDelPropietario = QtWidgets.QLabel(self.centralwidget)
         self.labelNombreDelPropietario.setGeometry(QtCore.QRect(281, 119, 121, 21))
@@ -205,6 +221,8 @@ class ventanaListaMascotas(object):
         # Cargar Mascota del CSV
         self.cargarMascotasCSV()
 
+        
+
 
     def retranslateUi(self, ListaMascotas):
         _translate = QtCore.QCoreApplication.translate
@@ -222,7 +240,12 @@ class ventanaListaMascotas(object):
         self.BtnAceptar.setText(_translate("ListaMascotas", "Aceptar"))
         self.labelMascotasDe.setText(_translate("ListaMascotas", "Mascotas de "))
         self.BtnNuevaMascota.setText(_translate("ListaMascotas", "+"))
-        self.labelNombreDelPropietario.setText(_translate("ListaMascotas", "nombre del dueño"))
+
+        nombre_cliente = self.obtenerNombreCliente(self.cliente_id)
+        if nombre_cliente is not None:
+            self.labelNombreDelPropietario.setText(nombre_cliente)
+        else:
+            self.labelNombreDelPropietario.setText("Cliente Desconocido")
 
     def cambiar_a_ventana_anterior(self):
                 self.ventanaActual = QtWidgets.QApplication.activeWindow()
@@ -233,7 +256,15 @@ class ventanaListaMascotas(object):
                 self.uiVentanaAnterior = ventanaListaCliente(self.cliente_id,self.idHabitacion)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
-    
+
+    def cambiarVentanaNuevaMascota(self):
+                self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+                self.uiVentanaActual.close()
+                self.nuevaVentana = QtWidgets.QMainWindow()
+                self.ui = ventanaNuevaMascota(self.cliente_id,self.idHabitacion) 
+                self.ui.setupUi(self.nuevaVentana)
+
+                self.nuevaVentana.show() 
     def cambiarVentana(self, clase, cliente_id):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
@@ -295,7 +326,113 @@ class ventanaListaMascotas(object):
                         self.usuario_seleccionado = id_usuario
                         return id_usuario
 
+    def actualizarBotones(self):
+                filasSeleccionada = self.tablaListaMascotas.selectedIndexes()
+
+                if filasSeleccionada:
+                        # Se seleccionó al menos una fila
+                        self.BtnAceptar.setEnabled(True)
+                        self.BtnVerDatos.setEnabled(True)
+                        self.BtnEditar.setEnabled(True)
+                        self.BtnEliminar.setEnabled(True)
+                else:
+                        # No se seleccionó ninguna fila
+                        self.BtnAceptar.setEnabled(False)
+                        self.BtnVerDatos.setEnabled(False)
+
+                        self.BtnEditar.setEnabled(False)
+                        self.BtnEliminar.setEnabled(False)
+
+
+    def eliminarMascota(self, usuario_id):
+                # Obtener el índice de la fila seleccionada
+                fila_seleccionada = self.tablaListaMascotas.currentRow()
+
+                # Eliminar la fila de la tabla
+                self.tablaListaMascotas.removeRow(fila_seleccionada)
+
+                # Eliminar el usuario del archivo CSV
+                datos = self.leerDatosDesdeCSV()
+                if datos:
+                        usuarios_actualizados = [fila for fila in datos if fila[0] != usuario_id]
+                with open('ArchivosCSV/Mascotas.csv', 'w', newline='') as csvfile:
+                        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        writer.writerows(usuarios_actualizados)
+
+                # Actualizar los botones
+                self.actualizarBotones()
+
+
+    def obtenerNombreCliente(self, cliente_id):
+        with open('ArchivosCSV/Cliente.csv', newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            datos_clientes = reader
+            for cliente in datos_clientes:
+                if cliente[0] == cliente_id:
+                    return cliente[1]  # Suponiendo que el nombre del cliente está en la columna 1 del CSV
+            return None  # Si no se encuentra el cliente con el cliente_id especificado
     
+
+    def obtenerSizeMascotaSeleccionada(self):
+        fila_seleccionada = self.tablaListaMascotas.currentRow()
+        nombre_mascota = self.tablaListaMascotas.item(fila_seleccionada, 0).text()
+
+        with open('ArchivosCSV/Mascotas.csv', 'r') as archivo_csv:
+            lector_csv = csv.reader(archivo_csv)
+            for fila in lector_csv:
+                if fila[1] == nombre_mascota:
+                    size_mascota = fila[6]
+                    break
+            else:
+                size_mascota = ''  # Manejo de casos en los que el nombre de la mascota no se encuentre en el CSV
+
+        print(size_mascota)
+
+        if size_mascota.isdigit():
+            return int(size_mascota)
+        else:
+            return 0  # Otra acción a realizar en caso de que el valor no sea numérico
+
+
+    def obtenerCapacidadHabitacionSeleccionada(self):
+        with open('ArchivosCSV/Habitacion.csv', newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            for row in reader:
+                if row[0] == self.idHabitacion:
+                    return int(row[1])  # La capacidad está en la columna 1
+
+        return None  # Si no se encuentra la habitación, devuelve None o un valor predeterminado
+
+
+    def aceptarClick(self):
+        print(self.obtenerSizeMascotaSeleccionada())
+        size = self.obtenerSizeMascotaSeleccionada()  # Obtener el tamaño de la mascota seleccionada
+        capacidad_actual = self.obtenerCapacidadHabitacionSeleccionada()  # Obtener la capacidad actual de la habitación
+        capacidad_restante = capacidad_actual - size  # Restar la cantidad correspondiente al tamaño de la mascota
+
+        if capacidad_restante < 0:
+            # Si la capacidad restante es menor que 0, mostrar un mensaje de error
+            QtWidgets.QMessageBox.critical(self.centralwidget, "Error", "No hay suficiente capacidad en la habitación.")
+        else:
+            # Actualizar la capacidad de la habitación en el archivo CSV
+            datos = self.leerDatosDesdeCSV()
+            for fila in datos:
+                if fila[0] == self.idHabitacion:
+                    fila[2] = str(capacidad_restante)
+                    break
+
+            # Escribir los datos actualizados en el archivo CSV
+            with open('ArchivosCSV/Habitaciones.csv', 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(datos)
+
+            # Mostrar un mensaje de éxito
+            QtWidgets.QMessageBox.information(self.centralwidget, "Éxito", "La capacidad de la habitación se actualizó correctamente.")
+    
+
+   
+            
+        
 
 
 
