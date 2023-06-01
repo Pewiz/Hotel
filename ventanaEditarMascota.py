@@ -258,14 +258,14 @@ class ventanaEditarMascota(object):
                 self.ventanaAnterior.show()
 
         def obtener_datos_mascota(self):
-                nombre_mascota = self.obtenerNombreMascota()  # Obtén el nombre de la mascota desde algún lugar
+                nombre_mascota = self.obtenerNombreMascota() 
                 
-                # Abrir y leer el archivo CSV
+                
                 with open('ArchivosCSV/Mascotas.csv', 'r') as file:
                         reader = csv.reader(file)
                         next(reader)  # Saltar la primera línea si contiene encabezados
                         
-                        # Buscar la mascota correspondiente al nombre de la mascota
+                       
                         for row in reader:
                                 if row[1] == nombre_mascota:
                                         # Obtener los datos de la mascota
@@ -277,7 +277,7 @@ class ventanaEditarMascota(object):
                                         size = row[6]
                                         peso = row[7]
                                         
-                                        # Establecer los datos en los campos correspondientes
+                                        
                                         self.inputNombre.setText(nombre)
                                         self.comboBoxEspecie.setCurrentText(especie)
                                         self.inputRaza.setText(raza)
@@ -286,7 +286,7 @@ class ventanaEditarMascota(object):
                                         self.comboBoxSexo.setCurrentText(sexo)
                                         self.comboBoxSize.setCurrentText(size)
                                         self.inputPeso.setText(peso)
-                                        break  # Terminar el bucle después de encontrar la mascota
+                                        break  
 
 
         def guardar_mascota_editado(self):
@@ -299,29 +299,24 @@ class ventanaEditarMascota(object):
                 peso = self.inputPeso.text()
                 
 
-
-                # Aquí puedes realizar la actualización de los datos del mascota en el archivo CSV
-                # Por ejemplo, puedes abrir el archivo CSV, leer los datos, actualizar los datos del mascota específico
-                # y luego guardar los cambios en el archivo
-
                 with open('ArchivosCSV/Mascotas.csv', 'r') as archivo_csv:
-                        # Leer los datos del archivo CSV
+                        
                         csv_reader = csv.reader(archivo_csv)
                         lineas = list(csv_reader)
 
-                        # Encontrar la línea correspondiente al mascota_id
+                        
                         for i, linea in enumerate(lineas):
                                 if linea[1] == self.obtenerNombreMascota:
-                                        # Actualizar los datos en la línea correspondiente
+                                        
                                         lineas[i] = [self.cliente_id, nombre, especie, raza, fecha_nacimiento, sexo, size, peso]
                                         break
 
-                # Guardar los cambios en el archivo CSV
+    
                 with open('ArchivosCSV/Mascotas.csv', 'w', newline='') as archivo_csv:
                         csv_writer = csv.writer(archivo_csv)
                         csv_writer.writerows(lineas)
 
-                # Mostrar un mensaje de éxito al mascota
+
                 QtWidgets.QMessageBox.information(self.centralwidget, "Éxito", "Los datos del mascota han sido actualizados correctamente.")
 
                 self.cambiar_a_ventana_anterior()
