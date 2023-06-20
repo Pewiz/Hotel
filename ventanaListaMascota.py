@@ -12,11 +12,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanaMostrarDatosMascota import ventanaMostrarMascota
 from ventanaEditarMascota import ventanaEditarMascota
 from ventanaNuevaMascota import ventanaNuevaMascota
+from PyQt5.QtCore import Qt, pyqtSignal
 
 class ventanaListaMascotas(object):
+    
     def __init__(self, cliente_id, idHabitacion):
         self.cliente_id = cliente_id
         self.idHabitacion = idHabitacion
+        
     def setupUi(self, ListaMascotas):
         
         ListaMascotas.setObjectName("ListaMascotas")
@@ -76,7 +79,7 @@ class ventanaListaMascotas(object):
         self.BtnVerDatos.setStyleSheet("background-color: rgb(0, 177, 15);\n" "border-radius:15px;")
         self.BtnVerDatos.setObjectName("BtnVerDatos")
 
-        self.BtnVerDatos.clicked.connect(lambda: self.cambiarVentana(ventanaMostrarMascota, self.obtenerMascotaSeleccionada()))
+        self.BtnVerDatos.clicked.connect(lambda: self.cambiarVentanaMostrarMascota(ventanaMostrarMascota))
 
         #Boton Editar
         self.BtnEditar = QtWidgets.QPushButton(self.centralwidget)
@@ -90,9 +93,8 @@ class ventanaListaMascotas(object):
         self.BtnEditar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.BtnEditar.setStyleSheet("background-color: rgb(251, 255, 0);\n" "border-radius:15px;")
         self.BtnEditar.setObjectName("BtnEditar")
-
-        #Accion Boton Editar
-        self.BtnEditar.clicked.connect(lambda: self.cambiarVentana(ventanaEditarMascota, self.obtenerMascotaSeleccionada()))
+        
+        self.BtnEditar.clicked.connect(lambda: self.cambiarVentanaEditarMascota(ventanaEditarMascota))
 
 
         #Boton Eliminar
@@ -109,7 +111,7 @@ class ventanaListaMascotas(object):
         self.BtnEliminar.setObjectName("BtnEliminar")
 
         #Accion boton eliminar
-        self.BtnEliminar.clicked.connect(lambda: self.eliminarMascota(self.obtenerMascotaSeleccionada()))
+        self.BtnEliminar.clicked.connect(lambda: self.eliminarMascota())
 
         #Lista Mascota
         self.tablaListaMascotas = QtWidgets.QTableWidget(self.centralwidget)
@@ -245,7 +247,7 @@ class ventanaListaMascotas(object):
         if nombre_cliente is not None:
             self.labelNombreDelPropietario.setText(nombre_cliente)
         else:
-            self.labelNombreDelPropietario.setText("Cliente Desconocido")
+            self.labelNombreDelPropietario.setText("Cliente ")
 
     def cambiar_a_ventana_anterior(self):
                 self.ventanaActual = QtWidgets.QApplication.activeWindow()
@@ -265,13 +267,35 @@ class ventanaListaMascotas(object):
                 self.ui.setupUi(self.nuevaVentana)
 
                 self.nuevaVentana.show() 
-    def cambiarVentana(self, clase, cliente_id):
-                self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
-                self.uiVentanaActual.close()
-                self.nuevaVentana = QtWidgets.QMainWindow()
-                self.ui = clase(cliente_id, self.idHabitacion)  # Pasa el idCliente y el idHabitacion como parámetros
-                self.ui.setupUi(self.nuevaVentana)
-                self.nuevaVentana.show()
+    
+    def cambiarVentanaMostrarMascota(self, ventana):
+        mascota = self.obtenerMascotaSeleccionada()
+        id_usuario = self.obtenerIdSeleccionado()
+        
+        if mascota and id_usuario is not None:
+            
+            self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+            self.uiVentanaActual.close()
+            self.nuevaVentana = QtWidgets.QMainWindow()
+            self.ui = ventana(id_usuario, self.idHabitacion, mascota)
+            self.ui.setupUi(self.nuevaVentana)           
+            self.nuevaVentana.show()
+
+
+    def cambiarVentanaEditarMascota(self, ventana):
+        mascota = self.obtenerMascotaSeleccionada()
+        id_usuario = self.obtenerIdSeleccionado()
+        
+        if mascota and id_usuario is not None:
+            
+            self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+            self.uiVentanaActual.close()
+            self.nuevaVentana = QtWidgets.QMainWindow()
+            self.ui = ventana(id_usuario, self.idHabitacion, mascota)
+            self.ui.setupUi(self.nuevaVentana)           
+            self.nuevaVentana.show()
+   
+
 
     def leerDatosDesdeCSV(self):
         with open('ArchivosCSV/Mascotas.csv', newline='') as csvfile:
@@ -319,12 +343,19 @@ class ventanaListaMascotas(object):
                     return row[3]  # El tipo de mascota aceptado se encuentra en la tercera columna (índice 2)
         return None  # Devuelve None si no se encuentra la habitación con el idHabitacion especificado
 
+    def obtenerIdSeleccionado(self):
+        fila_seleccionada = self.tablaListaMascotas.currentRow()
+        if fila_seleccionada != -1:
+            id_usuario = self.tablaListaMascotas.item(fila_seleccionada, 0).text()
+            self.usuario_seleccionado = id_usuario
+            return id_usuario
+
     def obtenerMascotaSeleccionada(self):
-                fila_seleccionada = self.tablaListaMascotas.currentRow()
-                if fila_seleccionada != -1:
-                        id_usuario = self.tablaListaMascotas.item(fila_seleccionada, 0).text()
-                        self.usuario_seleccionado = id_usuario
-                        return id_usuario
+        fila_seleccionada = self.tablaListaMascotas.currentRow()
+        if fila_seleccionada != -1:
+            mascota = self.tablaListaMascotas.item(fila_seleccionada, 1).text()
+            self.mascota_seleccionada = mascota
+            return mascota
 
     def actualizarBotones(self):
                 filasSeleccionada = self.tablaListaMascotas.selectedIndexes()
@@ -344,23 +375,29 @@ class ventanaListaMascotas(object):
                         self.BtnEliminar.setEnabled(False)
 
 
-    def eliminarMascota(self, usuario_id):
-                # Obtener el índice de la fila seleccionada
-                fila_seleccionada = self.tablaListaMascotas.currentRow()
+    def eliminarMascota(self):
+        # Obtener el índice de la fila seleccionada
+        usuario_id = self.obtenerIdSeleccionado()
+        nombre_mascota = self.obtenerMascotaSeleccionada()
+        print(nombre_mascota," a ", usuario_id)
 
-                # Eliminar la fila de la tabla
-                self.tablaListaMascotas.removeRow(fila_seleccionada)
+        fila_seleccionada = self.tablaListaMascotas.currentRow()
 
-                # Eliminar el usuario del archivo CSV
-                datos = self.leerDatosDesdeCSV()
-                if datos:
-                        usuarios_actualizados = [fila for fila in datos if fila[0] != usuario_id]
-                with open('ArchivosCSV/Mascotas.csv', 'w', newline='') as csvfile:
-                        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                        writer.writerows(usuarios_actualizados)
+        # Eliminar la fila de la tabla
+        self.tablaListaMascotas.removeRow(fila_seleccionada)
 
-                # Actualizar los botones
-                self.actualizarBotones()
+        # Eliminar el usuario del archivo CSV
+        datos = self.leerDatosDesdeCSV()
+
+        if datos:
+            usuarios_actualizados = [fila for fila in datos if fila[0] != usuario_id or fila[1] != nombre_mascota]
+            with open('ArchivosCSV/Mascotas.csv', 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                writer.writerows(usuarios_actualizados)
+
+        # Actualizar los botones
+        self.actualizarBotones()
+
 
 
     def obtenerNombreCliente(self, cliente_id):
@@ -375,7 +412,10 @@ class ventanaListaMascotas(object):
 
     def obtenerSizeMascotaSeleccionada(self):
         fila_seleccionada = self.tablaListaMascotas.currentRow()
-        nombre_mascota = self.tablaListaMascotas.item(fila_seleccionada, 0).text()
+        if fila_seleccionada != -1:
+            nombre_mascota = self.tablaListaMascotas.item(fila_seleccionada, 0).text()
+        else:
+            print("no selecciono")
 
         with open('ArchivosCSV/Mascotas.csv', 'r') as archivo_csv:
             lector_csv = csv.reader(archivo_csv)

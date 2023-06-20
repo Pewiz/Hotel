@@ -12,12 +12,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaMostrarMascota(object):
-    def __init__(self, cliente_id, idHabitacion):
-                self.cliente_id = cliente_id
-                self.idHabitacion = idHabitacion
+    def __init__(self, cliente_id, idHabitacion, nombre_mascota):
+            self.cliente_id = cliente_id
+            self.idHabitacion = idHabitacion
+            self.nombre_mascota = nombre_mascota
+                
     def setupUi(self, MostrarMascota):
-        print(self.obtenerNombreMascota())
-        self.nombre_mascota = None
+        
         MostrarMascota.setObjectName("MostrarMascota")
         MostrarMascota.resize(802, 602)
         icon = QtGui.QIcon()
@@ -239,22 +240,8 @@ class ventanaMostrarMascota(object):
         self.uiVentanaAnterior = ventanaListaMascotas(self.cliente_id,self.idHabitacion)
         self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
         self.ventanaAnterior.show()
-
-    def obtenerNombreMascota(self):
-        nombre_mascota = None  # Inicializar la variable fuera del ciclo
-        
-        with open('ArchivosCSV/Mascotas.csv', 'r') as archivo:
-            reader = csv.reader(archivo)
-            for row in reader:
-                nombre_mascota = row[1]
-        
-        return nombre_mascota  # Retornar la variable después del ciclo
-
-
-
-    def obtener_datos_mascota(self):
-        nombre_mascota = self.obtenerNombreMascota()  # Obtén el nombre de la mascota desde algún lugar
-        
+    
+    def obtener_datos_mascota(self):   
         # Abrir y leer el archivo CSV
         with open('ArchivosCSV/Mascotas.csv', 'r') as file:
             reader = csv.reader(file)
@@ -262,7 +249,7 @@ class ventanaMostrarMascota(object):
             
             # Buscar la mascota correspondiente al nombre de la mascota
             for row in reader:
-                if row[1] == nombre_mascota:
+                if row[0] == str(self.cliente_id) and row[1] == str(self.nombre_mascota):
                     # Obtener los datos de la mascota
                     nombre = row[1]
                     especie = row[2]
@@ -280,5 +267,6 @@ class ventanaMostrarMascota(object):
                     self.outputSexo.setText(sexo)
                     self.outputSize.setText(size)
                     self.outputPeso.setText(peso)
+
                     break  # Terminar el bucle después de encontrar la mascota
 

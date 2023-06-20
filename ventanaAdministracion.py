@@ -9,14 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import ventanaLogin
 from ventanaHabitaciones import ventanaHabitaciones
 from ventanaListaUsuarios import ventanaListaUsuarios
 
 
-class ventanaAdministracion(object,):
+class ventanaAdministracion(object):
         def __init__(self, parent=None):
                 self.parent = parent
-        def setupUi(self, Administracion,verificacion_admin):
+        def setupUi(self, Administracion):
                 Administracion.setObjectName("Administracion")
                 Administracion.resize(802, 602)
                 Administracion.setMinimumSize(QtCore.QSize(802, 602))
@@ -74,7 +76,7 @@ class ventanaAdministracion(object,):
                 self.BtnAdministracionDeUsuarios.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
                 self.BtnAdministracionDeUsuarios.setStyleSheet("background-color: rgb(79, 163, 166);\n" "border-radius: 10px;\n")
                 self.BtnAdministracionDeUsuarios.setObjectName("BtnAdministracionDeUsuarios")
-                self.BtnAdministracionDeUsuarios.setEnabled(verificacion_admin)
+                self.BtnAdministracionDeUsuarios.setEnabled(ventanaLogin.Bandera)
                 #Accion boton administracion de usuarios
                 self.BtnAdministracionDeUsuarios.clicked.connect(lambda:self.cambiar_ventana(ventanaListaUsuarios))
 

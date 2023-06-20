@@ -12,9 +12,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaEditarMascota(object):
-        def __init__(self, cliente_id, idHabitacion):
+        def __init__(self, cliente_id, idHabitacion, nombre_mascota):
                 self.cliente_id = cliente_id
                 self.idHabitacion = idHabitacion
+                self.nombre_mascota = nombre_mascota
+
         def setupUi(self, EditarMascota):
                 EditarMascota.setObjectName("EditarMascota")
                 EditarMascota.resize(802, 602)
@@ -258,17 +260,14 @@ class ventanaEditarMascota(object):
                 self.ventanaAnterior.show()
 
         def obtener_datos_mascota(self):
-                nombre_mascota = self.obtenerNombreMascota() 
-                
-                
+        # Abrir y leer el archivo CSV
                 with open('ArchivosCSV/Mascotas.csv', 'r') as file:
                         reader = csv.reader(file)
                         next(reader)  # Saltar la primera línea si contiene encabezados
-                        
-                       
+
                         for row in reader:
-                                if row[1] == nombre_mascota:
-                                        # Obtener los datos de la mascota
+                                if row[0] == str(self.cliente_id) and row[1] == str(self.nombre_mascota):
+
                                         nombre = row[1]
                                         especie = row[2]
                                         raza = row[3]
@@ -286,9 +285,9 @@ class ventanaEditarMascota(object):
                                         self.comboBoxSexo.setCurrentText(sexo)
                                         self.comboBoxSize.setCurrentText(size)
                                         self.inputPeso.setText(peso)
-                                        break  
 
-
+                                        break 
+                
         def guardar_mascota_editado(self):
                 nombre = self.inputNombre.text()
                 especie = self.comboBoxEspecie.currentText()
@@ -303,15 +302,12 @@ class ventanaEditarMascota(object):
                         
                         csv_reader = csv.reader(archivo_csv)
                         lineas = list(csv_reader)
-
                         
                         for i, linea in enumerate(lineas):
-                                if linea[1] == self.obtenerNombreMascota:
-                                        
+                                if linea[1] == self.nombre_mascota:
                                         lineas[i] = [self.cliente_id, nombre, especie, raza, fecha_nacimiento, sexo, size, peso]
                                         break
 
-    
                 with open('ArchivosCSV/Mascotas.csv', 'w', newline='') as archivo_csv:
                         csv_writer = csv.writer(archivo_csv)
                         csv_writer.writerows(lineas)
@@ -322,12 +318,8 @@ class ventanaEditarMascota(object):
                 self.cambiar_a_ventana_anterior()
 
 
-        def obtenerNombreMascota(self):
-                with open('ArchivosCSV/Mascotas.csv', 'r') as archivo:
-                        reader = csv.reader(archivo)
-                        for row in reader:
-                                nombre_mascota = row[1]
-                return nombre_mascota
+        
+
 
         
 

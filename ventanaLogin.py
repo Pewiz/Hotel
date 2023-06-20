@@ -14,6 +14,7 @@ from ventanaAdministracion import ventanaAdministracion
 
 
 
+Bandera = None
 
 class ventanaLogin(object):
         def __init__(self, parent=None):
@@ -114,8 +115,8 @@ class ventanaLogin(object):
                 Login.setWindowTitle(_translate("Login", "Hotel"))
                 self.labelTitulo.setText(_translate("Login", "Centro Veterinario Integral"))
                 self.BtnIniciarSesion.setText(_translate("Login", "Iniciar Sesión"))
-                self.inputUser.setText(_translate("Login", " Rut"))
-                self.inputPassword.setText(_translate("Login", " Contraseña"))
+                self.inputUser.setPlaceholderText(_translate("Login","Rut"))
+                self.inputPassword.setPlaceholderText(_translate("Login","Contraseña"))
 
 
         def verificar_credenciales(self, rut, contraseña):
@@ -129,14 +130,16 @@ class ventanaLogin(object):
                                         return True
                 return False
         def verificar_admin(self,rut,contraseña):
+                global Bandera
                 with open('ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
                         reader = csv.reader(file)
                         next(reader)
                         for row in reader:
                                 if row[7] == rut and row[6] == contraseña:
                                         if row[10] == "Administrador":
-                                                return True
-                return False
+                                                Bandera = True
+                                        else:
+                                                Bandera = False
 
 
 
@@ -149,12 +152,12 @@ class ventanaLogin(object):
                 
                 if self.verificar_credenciales(rut, contraseña):
 
-                        admin=self.verificar_admin(rut,contraseña)
+                        self.verificar_admin(rut,contraseña)
                         self.uiVentanaActual= QtWidgets.QApplication.activeWindow()
                         self.uiVentanaActual.close()
                         self.nuevaVentana = QtWidgets.QMainWindow()
                         self.ui = nombreVentana()
-                        self.ui.setupUi(self.nuevaVentana,admin)
+                        self.ui.setupUi(self.nuevaVentana)
                         self.nuevaVentana.show()
                 else:
                         QtWidgets.QMessageBox.warning(self.centralwidget, 'Error', 'RUT o contraseña incorrectos.')
