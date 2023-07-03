@@ -52,14 +52,19 @@ class ventanaAdministracion(object):
 
                 #Boton gestion de habitacion
                 self.BtnGestionDeHabitacion = QtWidgets.QPushButton(self.centralwidget)
-                self.BtnGestionDeHabitacion.setGeometry(QtCore.QRect(90, 217, 271, 61))
+                self.BtnGestionDeHabitacion.setGeometry(QtCore.QRect(90, 167, 271, 61))
                 font = QtGui.QFont()
                 font.setFamily("Arial")
                 font.setPointSize(14)
                 self.BtnGestionDeHabitacion.setFont(font)
                 self.BtnGestionDeHabitacion.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.BtnGestionDeHabitacion.setStyleSheet("background-color: rgb(79, 163, 166);\n"
-        "border-radius: 10px;")
+                self.BtnGestionDeHabitacion.setStyleSheet("QPushButton{\n"
+"    border-radius: 13px;\n"
+"    background-color: #4fa3a6;\n"
+"}\n"
+"QPushButton::hover {\n"
+"    background: rgb(181, 181, 181) ;\n"
+"}")
                 self.BtnGestionDeHabitacion.setObjectName("BtnGestionDeHabitacion")
 
                 #Accion boton gestion de habitacion
@@ -68,13 +73,19 @@ class ventanaAdministracion(object):
                 #Boton administracion de usuarios
                 
                 self.BtnAdministracionDeUsuarios = QtWidgets.QPushButton(self.centralwidget)
-                self.BtnAdministracionDeUsuarios.setGeometry(QtCore.QRect(91, 370, 271, 61))
+                self.BtnAdministracionDeUsuarios.setGeometry(QtCore.QRect(91, 290, 271, 61))
                 font = QtGui.QFont()
                 font.setFamily("Arial")
                 font.setPointSize(14)
                 self.BtnAdministracionDeUsuarios.setFont(font)
                 self.BtnAdministracionDeUsuarios.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.BtnAdministracionDeUsuarios.setStyleSheet("background-color: rgb(79, 163, 166);\n" "border-radius: 10px;\n")
+                self.BtnAdministracionDeUsuarios.setStyleSheet("QPushButton{\n"
+"    border-radius: 13px;\n"
+"    background-color: #4fa3a6;\n"
+"}\n"
+"QPushButton::hover {\n"
+"    background: rgb(181, 181, 181) ;\n"
+"}")
                 self.BtnAdministracionDeUsuarios.setObjectName("BtnAdministracionDeUsuarios")
                 self.BtnAdministracionDeUsuarios.setEnabled(ventanaLogin.Bandera)
                 #Accion boton administracion de usuarios
@@ -92,8 +103,20 @@ class ventanaAdministracion(object):
                 self.BtnAtras = QtWidgets.QPushButton(self.centralwidget)
                 self.BtnAtras.setGeometry(QtCore.QRect(20, 15, 51, 51))
                 self.BtnAtras.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.BtnAtras.setStyleSheet("background-color: rgb(79, 163, 166);\n"
-        "border-radius: 10px;")
+                self.BtnAtras.setStyleSheet("QPushButton {\n"
+"  \n"
+"    \n"
+"    background-color: rgb(0,0,0,0);\n"
+"    border-radius: 20px;\n"
+"\n"
+"  \n"
+"}\n"
+"\n"
+"\n"
+"QPushButton::hover {\n"
+"    background: #74b6b6;\n"
+"}\n"
+"")
                 self.BtnAtras.setText("")
                 icon1 = QtGui.QIcon()
                 icon1.addPixmap(QtGui.QPixmap("Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -104,6 +127,26 @@ class ventanaAdministracion(object):
                 #Accion boton atras
                 self.BtnAtras.clicked.connect(self.cambiar_a_ventana_anterior)
 
+                #Boton Lista Reserva
+                self.BtnListaReservas = QtWidgets.QPushButton(self.centralwidget)
+                self.BtnListaReservas.setGeometry(QtCore.QRect(90, 420, 271, 61))
+                font = QtGui.QFont()
+                font.setFamily("Arial")
+                font.setPointSize(14)
+                self.BtnListaReservas.setFont(font)
+                self.BtnListaReservas.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                self.BtnListaReservas.setStyleSheet("QPushButton{\n"
+                "    border-radius: 13px;\n"
+                "    background-color: #4fa3a6;\n"
+                "}\n"
+                "QPushButton::hover {\n"
+                "    background: rgb(181, 181, 181) ;\n"
+                "}")
+                self.BtnListaReservas.setObjectName("BtnListaReservas")
+                
+                #Accion boton Lista
+                self.BtnListaReservas.clicked.connect(self.cambiarVentanaListaCliente)
+                
                 Administracion.setCentralWidget(self.centralwidget)
 
                 self.retranslateUi(Administracion)
@@ -115,6 +158,7 @@ class ventanaAdministracion(object):
                 self.labelTitulo.setText(_translate("Administracion", "Administración"))
                 self.BtnGestionDeHabitacion.setText(_translate("Administracion", "Gestion de habitacion"))
                 self.BtnAdministracionDeUsuarios.setText(_translate("Administracion", "Administración de usuarios"))
+                self.BtnListaReservas.setText(_translate("Administracion", "Lista de Reservas de Clientes"))
         
 
 
@@ -136,6 +180,15 @@ class ventanaAdministracion(object):
                 self.uiVentanaAnterior = ventanaLogin()
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
+        
+        def cambiarVentanaListaCliente(self):
+                self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+                self.uiVentanaActual.close()
+                self.nuevaVentana = QtWidgets.QMainWindow()
+                from ventanaListaClientes import ventanaListaCliente
+                self.ui = ventanaListaCliente(None, None, 0)  # Pasar cliente_id y idHabitacion como parámetros
+                self.ui.setupUi(self.nuevaVentana)
+                self.nuevaVentana.show()
 
 
 

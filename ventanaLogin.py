@@ -93,10 +93,11 @@ class ventanaLogin(object):
                 self.inputUser.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\n"
         "color: rgb(207, 207, 207);\n"
         "")
-                self.inputUser.setMaxLength(32768)
+                self.inputUser.setMaxLength(12)
                 self.inputUser.setCursorPosition(4)
                 self.inputUser.setDragEnabled(False)
                 self.inputUser.setObjectName("inputUser")
+                self.inputUser.textEdited.connect(self.autocompletar_rut)
                 self.inputPassword = QtWidgets.QLineEdit(self.centralwidget)
                 self.inputPassword.setGeometry(QtCore.QRect(317, 360, 211, 41))
                 self.inputPassword.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\n"
@@ -105,6 +106,7 @@ class ventanaLogin(object):
                 self.inputPassword.setEchoMode(QtWidgets.QLineEdit.Password)
                 self.inputPassword.setCursorPosition(11)
                 self.inputPassword.setObjectName("inputPassword")
+                
                 Login.setCentralWidget(self.centralwidget)
 
                 self.retranslateUi(Login)
@@ -120,15 +122,18 @@ class ventanaLogin(object):
 
 
         def verificar_credenciales(self, rut, contraseña):
+                self.user = False
                 #hay que poner el directorio exacto
                 with open('ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
                         reader = csv.reader(file)
                         next(reader) 
                         for row in reader:
-                                if row[7] == rut and row[6] == contraseña:
-
-                                        return True
+                                if row[7] == rut:
+                                        self.user = True
+                                        if row[6] == contraseña:
+                                                return True
                 return False
+        
         def verificar_admin(self,rut,contraseña):
                 global Bandera
                 with open('ArchivosCSV/Usuarios.csv', 'r', newline='') as file:
@@ -151,7 +156,10 @@ class ventanaLogin(object):
                 contraseña = self.inputPassword.text()
                 
                 if self.verificar_credenciales(rut, contraseña):
-
+                        self.inputUser.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\n"
+                        "color: rgb(207, 207, 207);\n")
+                        self.inputPassword.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\n"
+                        "color: rgb(207, 207, 207);")
                         self.verificar_admin(rut,contraseña)
                         self.uiVentanaActual= QtWidgets.QApplication.activeWindow()
                         self.uiVentanaActual.close()
@@ -161,6 +169,32 @@ class ventanaLogin(object):
                         self.nuevaVentana.show()
                 else:
                         QtWidgets.QMessageBox.warning(self.centralwidget, 'Error', 'RUT o contraseña incorrectos.')
+                        if self.user == False:
+                                self.inputUser.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\ncolor: rgb(207, 207, 207);\nborder: 1px solid #ff0000;\n")
+                        else:
+                                self.inputUser.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\n"
+                                "color: rgb(207, 207, 207);\n")
+                        self.inputPassword.setStyleSheet("background-color: rgba(0, 38, 77, 0.5);\ncolor: rgb(207, 207, 207);\nborder: 1px solid #ff0000;\n")
+
+        
+        def autocompletar_rut(self, rut):
+                rut_limpio = rut.replace(".", "").replace("-", "")
+                rut_formateado = self.formatear_rut(rut_limpio)
+                self.inputUser.blockSignals(True)
+                self.inputUser.setText(rut_formateado)
+                self.inputUser.setCursorPosition(len(rut_formateado))
+                self.inputUser.blockSignals(False)
+        
+        def formatear_rut(self, rut):
+                rut_formateado = ""
+                if len(rut) > 1:
+                        parte_entera = rut[:-1]
+                        digito_verificador = rut[-1]
+                        parte_entera_formateada = "{:,}".format(int(parte_entera)).replace(",", ".")
+                        rut_formateado = f"{parte_entera_formateada}-{digito_verificador}"
+                elif len(rut) == 1:
+                        rut_formateado = rut
+                return rut_formateado
         
 
 if __name__ == "__main__":

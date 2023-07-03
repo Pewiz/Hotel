@@ -1,4 +1,4 @@
-ID Cliente,Nombre,Especie,Raza,Fecha Nacimiento,Sexo,Size,Peso
-743,Lala,Perro,Pastor Aleman,15-10-2021,Hembra,Grande,15
-743,Doky,Perro,Siberiano,15-01-2023,Macho,Muy Grande,45
-743,asda,Roedor,asdas,01-01-2000,Hembra,Mediano,2
+ID Cliente,ID Habitacion,Nombre Mascota,Especie,Fecha Inicio,Hora Entrada,Fecha Termino,Dias
+743,458,Lala,Perro,15-10-2021,08:00,None,0
+743,458,Doky,Perro,15-01-2023,08:00,None,0
+743,458,asda,Roedor,01-01-2000,08:00,None,0

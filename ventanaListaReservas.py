@@ -13,13 +13,10 @@ from ventanaEditarCliente import ventanaEditarCliente
 from ventanaMostrarDatosCliente import ventanaMostrarCliente
 from ventanaNuevoClinte import ventanaNuevoCliente
 from ventanaListaMascota import ventanaListaMascotas
-from ventanaListaReservas import ventanaListaReservas
 
-class ventanaListaCliente(object):
-        def __init__(self, cliente_id, habitacion, cont):
+class ventanaListaReservas(object):
+        def __init__(self, cliente_id):
                 self.cliente_id = cliente_id
-                self.habitacion = habitacion
-                self.cont = cont
         def setupUi(self, ListaCliente):
                 ListaCliente.setObjectName("ListaCliente")
                 ListaCliente.resize(802, 602)
@@ -96,7 +93,6 @@ class ventanaListaCliente(object):
                 self.BtnEditar.setStyleSheet("background-color: rgb(251, 255, 0);\n" "border-radius:15px;")
                 self.BtnEditar.setObjectName("BtnEditar")
 
-                #Accion Boton Editar
                 self.BtnEditar.clicked.connect(lambda: self.cambiarVentana(ventanaEditarCliente, self.obtenerClienteSeleccionado()))
 
                 #Boton Eliminar
@@ -117,30 +113,30 @@ class ventanaListaCliente(object):
                 self.BtnEliminar.clicked.connect(lambda: self.eliminarCliente(self.obtenerClienteSeleccionado()))
 
                 #Tabla Clientes
-                self.tablaListaClientes = QtWidgets.QTableWidget(self.centralwidget)
-                self.tablaListaClientes.setGeometry(QtCore.QRect(30, 160, 481, 291))
-                self.tablaListaClientes.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-                self.tablaListaClientes.setObjectName("tablaListaClientes")
-                self.tablaListaClientes.setColumnCount(3)
+                self.tablaListaReservas = QtWidgets.QTableWidget(self.centralwidget)
+                self.tablaListaReservas.setGeometry(QtCore.QRect(30, 160, 481, 291))
+                self.tablaListaReservas.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+                self.tablaListaReservas.setObjectName("tablaListaReservas")
+                self.tablaListaReservas.setColumnCount(3)
                 item = QtWidgets.QTableWidgetItem()
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
-                self.tablaListaClientes.setHorizontalHeaderItem(0, item)
+                self.tablaListaReservas.setHorizontalHeaderItem(0, item)
                 item = QtWidgets.QTableWidgetItem()
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
-                self.tablaListaClientes.setHorizontalHeaderItem(1, item)
+                self.tablaListaReservas.setHorizontalHeaderItem(1, item)
                 item = QtWidgets.QTableWidgetItem()
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
-                self.tablaListaClientes.setHorizontalHeaderItem(2, item)
-                self.tablaListaClientes.horizontalHeader().setCascadingSectionResizes(True)
-                self.tablaListaClientes.horizontalHeader().setDefaultSectionSize(115)
-                self.tablaListaClientes.horizontalHeader().setHighlightSections(True)
-                self.tablaListaClientes.horizontalHeader().setMinimumSectionSize(58)
-                self.tablaListaClientes.horizontalHeader().setSortIndicatorShown(False)
-                self.tablaListaClientes.horizontalHeader().setStretchLastSection(True)
-                self.tablaListaClientes.verticalHeader().setCascadingSectionResizes(True)
-                self.tablaListaClientes.verticalHeader().setHighlightSections(True)
-                self.tablaListaClientes.verticalHeader().setSortIndicatorShown(False)
-                self.tablaListaClientes.verticalHeader().setStretchLastSection(False)
+                self.tablaListaReservas.setHorizontalHeaderItem(2, item)
+                self.tablaListaReservas.horizontalHeader().setCascadingSectionResizes(True)
+                self.tablaListaReservas.horizontalHeader().setDefaultSectionSize(115)
+                self.tablaListaReservas.horizontalHeader().setHighlightSections(True)
+                self.tablaListaReservas.horizontalHeader().setMinimumSectionSize(58)
+                self.tablaListaReservas.horizontalHeader().setSortIndicatorShown(False)
+                self.tablaListaReservas.horizontalHeader().setStretchLastSection(True)
+                self.tablaListaReservas.verticalHeader().setCascadingSectionResizes(True)
+                self.tablaListaReservas.verticalHeader().setHighlightSections(True)
+                self.tablaListaReservas.verticalHeader().setSortIndicatorShown(False)
+                self.tablaListaReservas.verticalHeader().setStretchLastSection(False)
 
                 #Boton Aceptar
                 self.BtnAceptar = QtWidgets.QPushButton(self.centralwidget)
@@ -157,10 +153,7 @@ class ventanaListaCliente(object):
                 self.BtnAceptar.setObjectName("BtnAceptar")
 
                 #Accion Boton Aceptar
-                if self.cont == 0:
-                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaReservas, self.obtenerClienteSeleccionado()))
-                else:
-                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaMascotas, self.obtenerClienteSeleccionado()))
+                self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaMascotas, self.obtenerClienteSeleccionado()))
 
                 self.labelClientesAgregados = QtWidgets.QLabel(self.centralwidget)
                 self.labelClientesAgregados.setGeometry(QtCore.QRect(29, 114, 481, 31))
@@ -193,7 +186,7 @@ class ventanaListaCliente(object):
                 self.BtnVerDatos.raise_()
                 self.BtnEditar.raise_()
                 self.BtnEliminar.raise_()
-                self.tablaListaClientes.raise_()
+                self.tablaListaReservas.raise_()
                 self.BtnAceptar.raise_()
                 self.labelClientesAgregados.raise_()
                 self.BtnNuevoCliente.raise_()
@@ -206,7 +199,7 @@ class ventanaListaCliente(object):
                 # Cargar Usuarios del CSV
                 self.cargarUsuariosCSV()
 
-                self.tablaListaClientes.itemSelectionChanged.connect(self.actualizarBotones)
+                self.tablaListaReservas.itemSelectionChanged.connect(self.actualizarBotones)
 
 
        
@@ -217,20 +210,20 @@ class ventanaListaCliente(object):
                 self.BtnVerDatos.setText(_translate("ListaCliente", "Ver datos"))
                 self.BtnEditar.setText(_translate("ListaCliente", "Editar"))
                 self.BtnEliminar.setText(_translate("ListaCliente", "Eliminar"))
-                item = self.tablaListaClientes.horizontalHeaderItem(0)
+                item = self.tablaListaReservas.horizontalHeaderItem(0)
                 item.setText(_translate("ListaCliente", "Rut"))
-                item = self.tablaListaClientes.horizontalHeaderItem(1)
+                item = self.tablaListaReservas.horizontalHeaderItem(1)
                 item.setText(_translate("ListaCliente", "Nombre"))
-                item = self.tablaListaClientes.horizontalHeaderItem(2)
+                item = self.tablaListaReservas.horizontalHeaderItem(2)
                 item.setText(_translate("ListaCliente", "Apellido"))
                 self.BtnAceptar.setText(_translate("ListaCliente", "Aceptar"))
                 self.labelClientesAgregados.setText(_translate("ListaCliente", "Clientes agregados"))
                 self.BtnNuevoCliente.setText(_translate("ListaCliente", "+"))
 
         def obtenerClienteSeleccionado(self):
-                fila_seleccionada = self.tablaListaClientes.currentRow()
+                fila_seleccionada = self.tablaListaReservas.currentRow()
                 if fila_seleccionada != -1:
-                        id_usuario = self.tablaListaClientes.item(fila_seleccionada, 0).text()
+                        id_usuario = self.tablaListaReservas.item(fila_seleccionada, 0).text()
                         self.usuario_seleccionado = id_usuario
                         return id_usuario
 
@@ -238,10 +231,7 @@ class ventanaListaCliente(object):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                if self.cont == 0:
-                        self.ui = clase(cliente_id)
-                else:
-                        self.ui = clase(cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
+                self.ui = clase(cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show()
 
@@ -267,7 +257,7 @@ class ventanaListaCliente(object):
                 self.nuevaVentana.show() 
         # Abre el archivo CSV y devuelve los datos como una lista de filas
         def leerDatosDesdeCSV(self):
-                with open('ArchivosCSV/Cliente.csv', newline='') as csvfile:
+                with open('ArchivosCSV/Habitaciones.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
                         return list(reader)
 
@@ -275,33 +265,59 @@ class ventanaListaCliente(object):
         # Inserta los datos en el widget de la tabla
         def insertarDatosEnTabla(self, datos):
                 for fila in datos:
-                        posicionFila = self.tablaListaClientes.rowCount()
-                        self.tablaListaClientes.insertRow(posicionFila)
+                        posicionFila = self.tablaListaReservas.rowCount()
+                        self.tablaListaReservas.insertRow(posicionFila)
 
                         for columna, value in enumerate(fila):
                                 item = QtWidgets.QTableWidgetItem(value)
                                 item.setTextAlignment(QtCore.Qt.AlignCenter)
-                                self.tablaListaClientes.setItem(posicionFila, columna, item)
+                                self.tablaListaReservas.setItem(posicionFila, columna, item)
 
 
- 
+        def filtrarReservas(self, reservas, cliente_id):
+                return [reserva for reserva in reservas if reserva[0] == cliente_id]
+        
+        
         # Carga los datos del archivo CSV en el tableWidget
         def cargarUsuariosCSV(self):
                 datos = self.leerDatosDesdeCSV()
 
                 if datos:
                         # Seleccionar las columnas "Id", "Rut", "Nombre" y "Apellido" (columnas 0, 7 , 1 y 2) 
-                        datos_seleccionados = [[fila[0],fila[5] ,fila[1], fila[2]] for fila in datos]
-                        encabezados = datos_seleccionados.pop(0)  
-                        self.tablaListaClientes.setColumnCount(len(encabezados))
-                        self.tablaListaClientes.setHorizontalHeaderLabels(encabezados)
+                        reservas = self.filtrarReservas(datos, self.cliente_id)
+                        encabezados = ["Id Habitacion", "Nombre Mascota", "Especie", "Fecha Inicio", "Estado", "Dias"]
 
-                        self.insertarDatosEnTabla(datos_seleccionados)
-                else:
-                        print("La lista de datos está vacía")
+                        self.tablaListaReservas.clearContents()
+                        self.tablaListaReservas.setRowCount(0)
+                        self.tablaListaReservas.setColumnCount(len(encabezados))
+                        self.tablaListaReservas.setHorizontalHeaderLabels(encabezados)
+                        
+                        self.tablaListaReservas.setRowCount(len(reservas))
+
+                        for i, dato in enumerate(reservas):
+                            idH = QtWidgets.QTableWidgetItem(dato[1])
+                            self.tablaListaReservas.setItem(i, 0, idH)
+                            
+                            nombre = QtWidgets.QTableWidgetItem(dato[2])
+                            self.tablaListaReservas.setItem(i, 1, nombre)
+                            
+                            especie = QtWidgets.QTableWidgetItem(dato[3])
+                            self.tablaListaReservas.setItem(i, 2, especie)
+                            
+                            fecha = QtWidgets.QTableWidgetItem(dato[4])
+                            self.tablaListaReservas.setItem(i, 3, fecha)
+                            
+                            estado = QtWidgets.QTableWidgetItem(dato[5])
+                            self.tablaListaReservas.setItem(i, 4, estado)
+                            
+                            a = QtWidgets.QTableWidgetItem(dato[6])
+                            self.tablaListaReservas.setItem(i, 5, a)
+                                
+                        else:
+                                print("La lista de datos está vacía")
 
         def actualizarBotones(self):
-                filasSeleccionada = self.tablaListaClientes.selectedIndexes()
+                filasSeleccionada = self.tablaListaReservas.selectedIndexes()
 
                 if filasSeleccionada:
                         # Se seleccionó al menos una fila
@@ -318,10 +334,10 @@ class ventanaListaCliente(object):
 
         def eliminarCliente(self, usuario_id):
                 # Obtener el índice de la fila seleccionada
-                fila_seleccionada = self.tablaListaClientes.currentRow()
+                fila_seleccionada = self.tablaListaReservas.currentRow()
 
                 # Eliminar la fila de la tabla
-                self.tablaListaClientes.removeRow(fila_seleccionada)
+                self.tablaListaReservas.removeRow(fila_seleccionada)
 
                 # Eliminar el usuario del archivo CSV
                 datos = self.leerDatosDesdeCSV()

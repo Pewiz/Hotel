@@ -315,7 +315,7 @@ class ventanaHabitaciones(object):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                self.ui = ventanaListaCliente(None, idHabitacion)  # Pasar cliente_id y idHabitacion como parámetros
+                self.ui = ventanaListaCliente(None, idHabitacion, 1)  # Pasar cliente_id y idHabitacion como parámetros
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show()
 
