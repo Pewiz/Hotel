@@ -13,7 +13,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaNuevoCliente(object):
-        def __init__(self, id_cliente, idHabitacion):
+        def __init__(self, cont, id_cliente, idHabitacion):
+                self.cont = cont
                 self.id_cliente= id_cliente
                 self.idHabitacion= idHabitacion
         def setupUi(self, ClienteNuevo):
@@ -266,7 +267,7 @@ class ventanaNuevoCliente(object):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                self.ui = clase(cliente_id, self.idHabitacion)  # Pasa el idCliente y el idHabitacion como parámetros
+                self.ui = clase(self.cont,cliente_id, self.idHabitacion)  # Pasa el idCliente y el idHabitacion como parámetros
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show()
 
@@ -276,7 +277,7 @@ class ventanaNuevoCliente(object):
 
                 from ventanaListaClientes import ventanaListaCliente  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaCliente(self.id_cliente,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaCliente(self.cont,self.id_cliente,self.idHabitacion)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
         

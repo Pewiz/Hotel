@@ -1,4 +1,7 @@
 ID Cliente,Nombre,Especie,Raza,Fecha Nacimiento,Sexo,Size,Peso
 743,Doky,Perro,Siberiano,15-01-2023,Macho,Muy Grande,45
+743,Lala,Perro,Aleman,12-01-2023,Hembra,Grande,34
 743,asda,Roedor,asdas,01-01-2000,Hembra,Mediano,2
-6745,dasdasda,Perro,sadasd,01-01-2000,Hembra,Pequeño,12
+6745,Nana,Perro,Golden,21-05-2020,Hembra,Grande,28
+6745,Patrick,Perro,Quiltro,06-03-2017,Macho,Mediano,21
+6745,German,Perro,Golden,21-05-2020,Macho,Grande,30

@@ -116,6 +116,7 @@ class ventanaListaUsuarios(object):
                 self.tablaListaUsuarios = QtWidgets.QTableWidget(self.centralwidget)
                 self.tablaListaUsuarios.setGeometry(QtCore.QRect(30, 160, 481, 291))
                 self.tablaListaUsuarios.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+                self.tablaListaUsuarios.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
                 self.tablaListaUsuarios.setObjectName("tablaListaUsuarios")
                 self.tablaListaUsuarios.setColumnCount(3)
                 item = QtWidgets.QTableWidgetItem()
@@ -136,7 +137,7 @@ class ventanaListaUsuarios(object):
                 self.tablaListaUsuarios.verticalHeader().setCascadingSectionResizes(True)
                 self.tablaListaUsuarios.verticalHeader().setHighlightSections(True)
                 self.tablaListaUsuarios.verticalHeader().setSortIndicatorShown(False)
-                self.tablaListaUsuarios.verticalHeader().setStretchLastSection(False)
+                self.tablaListaUsuarios.verticalHeader().setVisible(False)
 
 
                 self.labelUsuariosAgregados = QtWidgets.QLabel(self.centralwidget)

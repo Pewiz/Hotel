@@ -36,7 +36,20 @@ class ventanaListaCliente(object):
                 self.BtnAtras = QtWidgets.QPushButton(self.centralwidget)
                 self.BtnAtras.setGeometry(QtCore.QRect(20, 15, 51, 51))
                 self.BtnAtras.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.BtnAtras.setStyleSheet("background-color: rgb(79, 163, 166);\n" "border-radius: 10px;")
+                self.BtnAtras.setStyleSheet("QPushButton {\n"
+"  \n"
+"    \n"
+"    background-color: rgb(0,0,0,0);\n"
+"    border-radius: 20px;\n"
+"\n"
+"  \n"
+"}\n"
+"\n"
+"\n"
+"QPushButton::hover {\n"
+"    background: #74b6b6;\n"
+"}\n"
+"")
                 self.BtnAtras.setText("")
                 icon1 = QtGui.QIcon()
                 icon1.addPixmap(QtGui.QPixmap("Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -120,6 +133,7 @@ class ventanaListaCliente(object):
                 self.tablaListaClientes = QtWidgets.QTableWidget(self.centralwidget)
                 self.tablaListaClientes.setGeometry(QtCore.QRect(30, 160, 481, 291))
                 self.tablaListaClientes.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+                self.tablaListaClientes.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
                 self.tablaListaClientes.setObjectName("tablaListaClientes")
                 self.tablaListaClientes.setColumnCount(3)
                 item = QtWidgets.QTableWidgetItem()
@@ -140,7 +154,7 @@ class ventanaListaCliente(object):
                 self.tablaListaClientes.verticalHeader().setCascadingSectionResizes(True)
                 self.tablaListaClientes.verticalHeader().setHighlightSections(True)
                 self.tablaListaClientes.verticalHeader().setSortIndicatorShown(False)
-                self.tablaListaClientes.verticalHeader().setStretchLastSection(False)
+                self.tablaListaClientes.verticalHeader().setVisible(False)
 
                 #Boton Aceptar
                 self.BtnAceptar = QtWidgets.QPushButton(self.centralwidget)
@@ -158,9 +172,9 @@ class ventanaListaCliente(object):
 
                 #Accion Boton Aceptar
                 if self.cont == 0:
-                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaReservas, self.obtenerClienteSeleccionado()))
+                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentanaReserva(ventanaListaReservas, self.obtenerClienteSeleccionado()))
                 else:
-                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentana(ventanaListaMascotas, self.obtenerClienteSeleccionado()))
+                        self.BtnAceptar.clicked.connect(lambda: self.cambiarVentanaMasc(ventanaListaMascotas, self.obtenerClienteSeleccionado()))
 
                 self.labelClientesAgregados = QtWidgets.QLabel(self.centralwidget)
                 self.labelClientesAgregados.setGeometry(QtCore.QRect(29, 114, 481, 31))
@@ -205,7 +219,7 @@ class ventanaListaCliente(object):
 
                 # Cargar Usuarios del CSV
                 self.cargarUsuariosCSV()
-
+                print(self.cont)
                 self.tablaListaClientes.itemSelectionChanged.connect(self.actualizarBotones)
 
 
@@ -234,14 +248,27 @@ class ventanaListaCliente(object):
                         self.usuario_seleccionado = id_usuario
                         return id_usuario
 
+        def cambiarVentanaMasc(self, clase, cliente_id):
+                self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+                self.uiVentanaActual.close()
+                self.nuevaVentana = QtWidgets.QMainWindow()
+                self.ui = clase(cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
+                self.ui.setupUi(self.nuevaVentana)
+                self.nuevaVentana.show()
+                
         def cambiarVentana(self, clase, cliente_id):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                if self.cont == 0:
-                        self.ui = clase(cliente_id)
-                else:
-                        self.ui = clase(cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
+                self.ui = clase(self.cont, cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
+                self.ui.setupUi(self.nuevaVentana)
+                self.nuevaVentana.show()
+        
+        def cambiarVentanaReserva(self, clase, cliente_id):
+                self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
+                self.uiVentanaActual.close()
+                self.nuevaVentana = QtWidgets.QMainWindow()
+                self.ui = clase(cliente_id)
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show()
 
@@ -262,7 +289,7 @@ class ventanaListaCliente(object):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                 self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                self.ui = ventanaNuevoCliente(self.cliente_id,self.habitacion) 
+                self.ui = ventanaNuevoCliente(self.cont,self.cliente_id,self.habitacion) 
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show() 
         # Abre el archivo CSV y devuelve los datos como una lista de filas

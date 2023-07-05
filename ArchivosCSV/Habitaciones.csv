@@ -1,4 +1,4 @@
-ID Cliente,ID Habitacion,Nombre Mascota,Especie,Fecha Inicio,Hora Entrada,Fecha Termino,Dias
-743,458,Lala,Perro,15-10-2021,08:00,None,0
-743,458,Doky,Perro,15-01-2023,08:00,None,0
-743,458,asda,Roedor,01-01-2000,08:00,None,0
+ID Cliente,ID Habitacion,Cantidad,Especie,Fecha Inicio,Fecha Termino,Dias
+743,458,2,Perro,01/01/2000,None,8585
+6745,653,2,Perro,03/06/2023,None,31
+6745,32314,1,Perro,02/06/2023,None,32

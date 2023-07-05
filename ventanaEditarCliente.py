@@ -12,7 +12,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaEditarCliente(object):
-        def __init__(self, id_cliente, idHabitacion):
+        def __init__(self, cont, id_cliente, idHabitacion):
+                self.cont = cont
                 self.id_cliente= id_cliente
                 self.idHabitacion= idHabitacion
         def setupUi(self, EditarCliente):
@@ -39,8 +40,20 @@ class ventanaEditarCliente(object):
                 self.BtnAtras = QtWidgets.QPushButton(self.centralwidget)
                 self.BtnAtras.setGeometry(QtCore.QRect(20, 15, 51, 51))
                 self.BtnAtras.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.BtnAtras.setStyleSheet("background-color: rgb(79, 163, 166);\n"
-        "border-radius: 10px;")
+                self.BtnAtras.setStyleSheet("QPushButton {\n"
+"  \n"
+"    \n"
+"    background-color: rgb(0,0,0,0);\n"
+"    border-radius: 20px;\n"
+"\n"
+"  \n"
+"}\n"
+"\n"
+"\n"
+"QPushButton::hover {\n"
+"    background: #74b6b6;\n"
+"}\n"
+"")
                 self.BtnAtras.setText("")
                 icon1 = QtGui.QIcon()
                 icon1.addPixmap(QtGui.QPixmap("Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -259,7 +272,7 @@ class ventanaEditarCliente(object):
 
                 from ventanaListaClientes import ventanaListaCliente  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaCliente(self.id_cliente,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaCliente(self.cont,self.id_cliente,self.idHabitacion)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
 

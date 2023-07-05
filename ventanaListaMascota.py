@@ -118,6 +118,7 @@ class ventanaListaMascotas(object):
         self.tablaListaMascotas.setGeometry(QtCore.QRect(30, 160, 481, 291))
         self.tablaListaMascotas.setAutoFillBackground(False)
         self.tablaListaMascotas.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tablaListaMascotas.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.tablaListaMascotas.setObjectName("tablaListaMascotas")
         self.tablaListaMascotas.setColumnCount(3)
         item = QtWidgets.QTableWidgetItem()
@@ -148,7 +149,7 @@ class ventanaListaMascotas(object):
         self.tablaListaMascotas.verticalHeader().setCascadingSectionResizes(True)
         self.tablaListaMascotas.verticalHeader().setHighlightSections(True)
         self.tablaListaMascotas.verticalHeader().setSortIndicatorShown(False)
-        self.tablaListaMascotas.verticalHeader().setStretchLastSection(False)
+        self.tablaListaMascotas.verticalHeader().setVisible(False)
 
         #Boton Aceptar
         self.BtnAceptar = QtWidgets.QPushButton(self.centralwidget)

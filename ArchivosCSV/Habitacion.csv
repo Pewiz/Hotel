@@ -1,6 +1,7 @@
 Id,Capacidad,Separada,Tipo de Mascota,Precio Dia
-458,20,True,Gato,17000
+458,20,True,Perro,17000
 653,10,True,Perro,25000
-546,2,True,Perro,34000
+546,2,True,Gato,34000
 37456,15,True,Roedor,21000
+32314,5,True,Perro,19000
 5242,10,False,Otro,21000
