@@ -272,7 +272,7 @@ class ventanaEditarCliente(object):
 
                 from ventanaListaClientes import ventanaListaCliente  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaCliente(self.cont,self.id_cliente,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaCliente(self.id_cliente,self.idHabitacion,self.cont)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
 

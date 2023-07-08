@@ -1,6 +1,7 @@
 ID Cliente,ID Habitacion,Nombre Mascota,Especie,Fecha Inicio,Fecha Termino,Dias
-743,458,Lala,Perro,01/01/2000,None,8585
-743,458,Doky,Perro,01/01/2000,None,8585
-6745,653,German,Perro,03/06/2023,None,31
-6745,653,Nana,Perro,03/06/2023,None,31
-6745,32314,Patrick,Perro,02/06/2023,None,32
+743,458,Lala,Perro,01/01/2000,06/07/2023,8587
+743,458,Doky,Perro,01/01/2000,06/07/2023,8587
+6745,653,German,Perro,03/06/2023,None,32
+6745,653,Nana,Perro,03/06/2023,None,32
+6745,32314,Patrick,Perro,02/06/2023,None,33
+743,458,Lala,Perro,10/07/2023,None,0

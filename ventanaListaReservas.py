@@ -279,43 +279,52 @@ class ventanaListaReservas(object):
                         
 
         def checkOut(self):
-                # Obtener el índice de la fila seleccionada
-                fechaCheckOut = str(self.fechaHoy.strftime("%d/%m/%Y"))
-                fila_seleccionada = self.tablaListaReservas.currentRow()
-                datos = self.leerDatosDesdeCSV()
-                reservas = self.filtrarReservas(datos, self.cliente_id)
-                with open('ArchivosCSV/Habitaciones.csv', "r", encoding="latin1") as w:
-                        lector = csv.reader(w, delimiter=",")
-                        lista_delistas = []
-                        for lista in lector:
-                                for i, lis in enumerate(reservas):
-                                        if lista == lis and i == fila_seleccionada:
-                                                lista[5] = fechaCheckOut
-                                lista_delistas.append(lista)
+                msg1 = QtWidgets.QMessageBox()
+                msg1.setWindowTitle("Confirmación.")
+                msg1.setText("¿Desea realizar el checkOut de esta reserva?\nEsta acción no se puede revertir...")
+                msg1.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                
+                decision = msg1.exec_()
+                if decision == QtWidgets.QMessageBox.Yes:
+                        # Obtener el índice de la fila seleccionada
+                        fechaCheckOut = str(self.fechaHoy.strftime("%d/%m/%Y"))
+                        fila_seleccionada = self.tablaListaReservas.currentRow()
+                        datos = self.leerDatosDesdeCSV()
+                        reservas = self.filtrarReservas(datos, self.cliente_id)
+                        with open('ArchivosCSV/Habitaciones.csv', "r", encoding="latin1") as w:
+                                lector = csv.reader(w, delimiter=",")
+                                lista_delistas = []
+                                for lista in lector:
+                                        for i, lis in enumerate(reservas):
+                                                if lista == lis and i == fila_seleccionada:
+                                                        lista[5] = fechaCheckOut
+                                        lista_delistas.append(lista)
 
-                with open('ArchivosCSV/Habitaciones.csv', "w", newline="") as w:
-                        escritor = csv.writer(w, delimiter=",")
-                        for lista in lista_delistas:
-                                escritor.writerow(lista)
+                        with open('ArchivosCSV/Habitaciones.csv', "w", newline="") as w:
+                                escritor = csv.writer(w, delimiter=",")
+                                for lista in lista_delistas:
+                                        escritor.writerow(lista)
                                 
-                with open('ArchivosCSV/ReservaLectura.csv', "r", encoding="latin1") as w:
-                        lector = csv.reader(w, delimiter=",")
-                        listadelistas = []
-                        for lista in lector:
-                                for lis in reservas:
-                                        if lista[0] == lis[0] and lista[1] == lis[1] and lista[4] == lis[4] and lista[5] == lis[5]:
-                                                lista[5] = fechaCheckOut
-                                listadelistas.append(lista)
+                        with open('ArchivosCSV/ReservaLectura.csv', "r", encoding="latin1") as w:
+                                lector = csv.reader(w, delimiter=",")
+                                listadelistas = []
+                                for lista in lector:
+                                        for lis in reservas:
+                                                if lista[0] == lis[0] and lista[1] == lis[1] and lista[4] == lis[4] and lista[5] == lis[5]:
+                                                        lista[5] = fechaCheckOut
+                                        listadelistas.append(lista)
 
-                with open('ArchivosCSV/ReservaLectura.csv', "w", newline="") as w:
-                        escritor = csv.writer(w, delimiter=",")
-                        for lista in listadelistas:
-                                escritor.writerow(lista)
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle("Checkout realizado con exito.")
-                msg.setText("Hola, revise sus boletas para revisar el precio.\nSus.")
-                msg.exec_()
-                self.cargarUsuariosCSV()
+                        with open('ArchivosCSV/ReservaLectura.csv', "w", newline="") as w:
+                                escritor = csv.writer(w, delimiter=",")
+                                for lista in listadelistas:
+                                        escritor.writerow(lista)
+                        self.cargarUsuariosCSV()
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle("Checkout realizado con exito.")
+                        msg.setText("Hola, revise sus boletas para revisar el precio.\nSus.")
+                        msg.exec_()
+                else:
+                        msg1.close()
                         
                 
                 

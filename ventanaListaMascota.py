@@ -256,7 +256,7 @@ class ventanaListaMascotas(object):
 
                 from ventanaListaClientes import ventanaListaCliente # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaCliente(self.cliente_id,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaCliente(self.cliente_id,self.idHabitacion,1)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
 
