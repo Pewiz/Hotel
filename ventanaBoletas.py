@@ -248,7 +248,8 @@ class ventanaBoletas(object):
                             for a in datoss:
                                     if dato[1] == a[0]:
                                             precio = a[4]
-                            subt = (int(precio) * int(dato[6]))
+                            sub = (int(precio) * int(dato[6]))
+                            subt = (sub * int(dato[2]))
                             if cant > 7:
                                     descuento1 = (subt * 0.3)
                                     self.flagDesc1 = True
