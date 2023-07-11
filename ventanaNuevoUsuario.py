@@ -16,6 +16,8 @@ class ventanaNuevoUsuario(object):
         def setupUi(self, UsuarioNuevo):
                 UsuarioNuevo.setObjectName("UsuarioNuevo")
                 UsuarioNuevo.resize(802, 602)
+                UsuarioNuevo.setMinimumSize(802, 602)
+                UsuarioNuevo.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 UsuarioNuevo.setWindowIcon(icon)

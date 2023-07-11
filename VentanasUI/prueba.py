@@ -84,7 +84,7 @@ class Ui_Administracion(object):
         self.BtnAtras.setStyleSheet("QPushButton {\n"
 "  \n"
 "    \n"
-"    background-color: rgb(0,0,0,0);\n"
+"    background-color: rgba(0,0,0,0);\n"
 "    border-radius: 20px;\n"
 "\n"
 "  \n"

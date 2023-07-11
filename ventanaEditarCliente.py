@@ -19,6 +19,8 @@ class ventanaEditarCliente(object):
         def setupUi(self, EditarCliente):
                 EditarCliente.setObjectName("EditarCliente")
                 EditarCliente.resize(802, 602)
+                EditarCliente.setMinimumSize(802, 602)
+                EditarCliente.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 EditarCliente.setWindowIcon(icon)
@@ -43,7 +45,7 @@ class ventanaEditarCliente(object):
                 self.BtnAtras.setStyleSheet("QPushButton {\n"
 "  \n"
 "    \n"
-"    background-color: rgb(0,0,0,0);\n"
+"    background-color: rgba(0,0,0,0);\n"
 "    border-radius: 20px;\n"
 "\n"
 "  \n"

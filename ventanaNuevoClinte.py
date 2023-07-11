@@ -20,6 +20,8 @@ class ventanaNuevoCliente(object):
         def setupUi(self, ClienteNuevo):
                 ClienteNuevo.setObjectName("ClienteNuevo")
                 ClienteNuevo.resize(802, 602)
+                ClienteNuevo.setMinimumSize(802, 602)
+                ClienteNuevo.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 ClienteNuevo.setWindowIcon(icon)
@@ -277,7 +279,7 @@ class ventanaNuevoCliente(object):
 
                 from ventanaListaClientes import ventanaListaCliente  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaCliente(self.cont,self.id_cliente,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaCliente(self.id_cliente,self.idHabitacion,self.cont)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
         

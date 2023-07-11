@@ -12,12 +12,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaNuevaMascota(object):
-        def __init__(self, id_cliente, idHabitacion):
+        def __init__(self, id_cliente, idHabitacion, cantidad):
                 self.id_cliente= id_cliente
                 self.idHabitacion= idHabitacion
+                self.cantidad = cantidad
         def setupUi(self, NuevaMascota):
                 NuevaMascota.setObjectName("NuevaMascota")
                 NuevaMascota.resize(802, 602)
+                NuevaMascota.setMinimumSize(802, 602)
+                NuevaMascota.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 NuevaMascota.setWindowIcon(icon)
@@ -235,8 +238,8 @@ class ventanaNuevaMascota(object):
                 self.comboBoxSexo.setItemText(2, _translate("NuevaMascota", "Macho"))
                 self.BtnAgregarMascota.setText(_translate("NuevaMascota", "Agregar Mascota"))
                 self.comboBoxSize.setItemText(0, _translate("NuevaMascota", "Elegir"))
-                self.comboBoxSize.setItemText(1, _translate("NuevaMascota", "Muy Pequeño"))
-                self.comboBoxSize.setItemText(2, _translate("NuevaMascota", "Pequeño"))
+                self.comboBoxSize.setItemText(1, _translate("NuevaMascota", "Muy Pequeno"))
+                self.comboBoxSize.setItemText(2, _translate("NuevaMascota", "Pequeno"))
                 self.comboBoxSize.setItemText(3, _translate("NuevaMascota", "Mediano"))
                 self.comboBoxSize.setItemText(4, _translate("NuevaMascota", "Grande"))
                 self.comboBoxSize.setItemText(5, _translate("NuevaMascota", "Muy Grande"))
@@ -253,7 +256,7 @@ class ventanaNuevaMascota(object):
 
                 from ventanaListaMascota import ventanaListaMascotas  # Importación local para evitar el ciclo de importación
                 self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-                self.uiVentanaAnterior = ventanaListaMascotas(self.id_cliente,self.idHabitacion)
+                self.uiVentanaAnterior = ventanaListaMascotas(self.id_cliente,self.idHabitacion,self.cantidad)
                 self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
                 self.ventanaAnterior.show()
 
@@ -307,6 +310,6 @@ class ventanaNuevaMascota(object):
                 self.inputPeso.setText("")
 
                 # Mostrar un mensaje de éxito al mascota
-                QtWidgets.QMessageBox.information(self.centralwidget, "Éxito", "El mascota fue ingresado correctamente.")
+                QtWidgets.QMessageBox.information(self.centralwidget, "Éxito", "La mascota fue ingresada correctamente.")
 
                 self.cambiar_a_ventana_anterior()

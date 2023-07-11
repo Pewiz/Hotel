@@ -17,6 +17,8 @@ class ventanaMostrarDatosUsuario(object):
         def setupUi(self, MostrarUsuario):
             MostrarUsuario.setObjectName("MostrarUsuario")
             MostrarUsuario.resize(802, 602)
+            MostrarUsuario.setMinimumSize(802, 602)
+            MostrarUsuario.setMaximumSize(802, 602)
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             MostrarUsuario.setWindowIcon(icon)

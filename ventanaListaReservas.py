@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ventanaListaClientes.ui'
+# Form implementation generated from reading ui file 'ventanaListaReservas.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -18,16 +18,18 @@ from ventanaListaMascota import ventanaListaMascotas
 class ventanaListaReservas(object):
         def __init__(self, cliente_id):
                 self.cliente_id = cliente_id
-        def setupUi(self, ListaCliente):
-                ListaCliente.setObjectName("ListaCliente")
-                ListaCliente.resize(802, 602)
+        def setupUi(self, ListaReserva):
+                ListaReserva.setObjectName("ListaReserva")
+                ListaReserva.resize(802, 602)
+                ListaReserva.setMinimumSize(802, 602)
+                ListaReserva.setMaximumSize(802, 602)
                 font = QtGui.QFont()
                 font.setFamily("Arial")
-                ListaCliente.setFont(font)
+                ListaReserva.setFont(font)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-                ListaCliente.setWindowIcon(icon)
-                self.centralwidget = QtWidgets.QWidget(ListaCliente)
+                ListaReserva.setWindowIcon(icon)
+                self.centralwidget = QtWidgets.QWidget(ListaReserva)
                 self.centralwidget.setObjectName("centralwidget")
 
                 #Boton Atras
@@ -37,7 +39,7 @@ class ventanaListaReservas(object):
                 self.BtnAtras.setStyleSheet("QPushButton {\n"
 "  \n"
 "    \n"
-"    background-color: rgb(0,0,0,0);\n"
+"    background-color: rgba(0,0,0,0);\n"
 "    border-radius: 20px;\n"
 "\n"
 "  \n"
@@ -93,22 +95,6 @@ class ventanaListaReservas(object):
                 #Accion Boton hacer checkout
                 self.btnHacerCheckOut.clicked.connect(self.checkOut)
 
-                #Boton Editar
-                self.btnModificar = QtWidgets.QPushButton(self.centralwidget)
-                self.btnModificar.setGeometry(QtCore.QRect(196, 460, 151, 31))
-                self.btnModificar.setEnabled(False)
-                font = QtGui.QFont()
-                font.setFamily("Arial")
-                font.setPointSize(11)
-                font.setBold(True)
-                font.setWeight(75)
-                self.btnModificar.setFont(font)
-                self.btnModificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.btnModificar.setStyleSheet("background-color: rgb(251, 255, 0);\n" "border-radius:15px;")
-                self.btnModificar.setObjectName("btnModificar")
-
-                self.btnModificar.clicked.connect(lambda: self.cambiarVentana(ventanaEditarCliente, self.obtenerClienteSeleccionado()))
-
                 #Boton cancelar
                 self.btnCancelar = QtWidgets.QPushButton(self.centralwidget)
                 self.btnCancelar.setGeometry(QtCore.QRect(368, 460, 141, 31))
@@ -124,7 +110,7 @@ class ventanaListaReservas(object):
                 self.btnCancelar.setObjectName("btnCancelar")
 
                 #Accion boton cancelar
-                self.btnCancelar.clicked.connect(lambda: self.eliminarCliente(self.obtenerClienteSeleccionado()))
+                self.btnCancelar.clicked.connect(self.eliminarReserva)
 
                 #Tabla Clientes
                 self.tablaListaReservas = QtWidgets.QTableWidget(self.centralwidget)
@@ -177,40 +163,39 @@ class ventanaListaReservas(object):
                 self.labelTitulo.raise_()
                 self.labelFotoPerrito.raise_()
                 self.btnHacerCheckOut.raise_()
-                self.btnModificar.raise_()
                 self.btnCancelar.raise_()
                 self.tablaListaReservas.raise_()
                 self.labelReservasDe.raise_()
                 self.BtnAtras.raise_()
                 self.labelNombreDelPropietario.raise_()
-                ListaCliente.setCentralWidget(self.centralwidget)
+                ListaReserva.setCentralWidget(self.centralwidget)
 
-                self.retranslateUi(ListaCliente)
-                QtCore.QMetaObject.connectSlotsByName(ListaCliente)
+                self.retranslateUi(ListaReserva)
+                QtCore.QMetaObject.connectSlotsByName(ListaReserva)
                 
                 self.calcularDias()
 
                 # Cargar Usuarios del CSV
-                self.cargarUsuariosCSV()
+                self.cargarReservasCSV()
 
                 self.tablaListaReservas.itemSelectionChanged.connect(self.actualizarBotones)
+                self.tablaListaReservas.itemDoubleClicked.connect(self.verReserva)
 
 
        
-        def retranslateUi(self, ListaCliente):
+        def retranslateUi(self, ListaReserva):
                 _translate = QtCore.QCoreApplication.translate
-                ListaCliente.setWindowTitle(_translate("ListaCliente", "Hotel"))
-                self.labelTitulo.setText(_translate("ListaCliente", "Lista Reservas "))
-                self.btnHacerCheckOut.setText(_translate("ListaCliente", "Hacer Checkout"))
-                self.btnModificar.setText(_translate("ListaCliente", "Modificar Reserva"))
-                self.btnCancelar.setText(_translate("ListaCliente", "Cancelar Reserva"))
+                ListaReserva.setWindowTitle(_translate("ListaReserva", "Hotel"))
+                self.labelTitulo.setText(_translate("ListaReserva", "Lista Reservas "))
+                self.btnHacerCheckOut.setText(_translate("ListaReserva", "Hacer Checkout"))
+                self.btnCancelar.setText(_translate("ListaReserva", "Cancelar Reserva"))
                 item = self.tablaListaReservas.horizontalHeaderItem(0)
-                item.setText(_translate("ListaCliente", "Rut"))
+                item.setText(_translate("ListaReserva", "Rut"))
                 item = self.tablaListaReservas.horizontalHeaderItem(1)
-                item.setText(_translate("ListaCliente", "Nombre"))
+                item.setText(_translate("ListaReserva", "Nombre"))
                 item = self.tablaListaReservas.horizontalHeaderItem(2)
-                item.setText(_translate("ListaCliente", "Apellido"))
-                self.labelReservasDe.setText(_translate("ListaCliente", "Reservas de "))
+                item.setText(_translate("ListaReserva", "Apellido"))
+                self.labelReservasDe.setText(_translate("ListaReserva", "Reservas de "))
                 
                 nombre_cliente = self.obtenerNombreCliente(self.cliente_id)
                 if nombre_cliente is not None:
@@ -318,10 +303,10 @@ class ventanaListaReservas(object):
                                 escritor = csv.writer(w, delimiter=",")
                                 for lista in listadelistas:
                                         escritor.writerow(lista)
-                        self.cargarUsuariosCSV()
+                        self.cargarReservasCSV()
                         msg = QtWidgets.QMessageBox()
                         msg.setWindowTitle("Checkout realizado con exito.")
-                        msg.setText("Hola, revise sus boletas para revisar el precio.\nSus.")
+                        msg.setText("Hola, revise sus boletas para revisar el precio.\nPara revisar las boletas dirigase a la lista de clientes y haga doble click sobre un cliente...")
                         msg.exec_()
                 else:
                         msg1.close()
@@ -358,6 +343,11 @@ class ventanaListaReservas(object):
                 with open('ArchivosCSV/Habitaciones.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
                         return list(reader)
+                
+        def leerReservaLecturaCsv(self):
+                with open('ArchivosCSV/ReservaLectura.csv', newline='') as csvfile:
+                        reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+                        return list(reader)
 
 
         # Inserta los datos en el widget de la tabla
@@ -377,7 +367,7 @@ class ventanaListaReservas(object):
         
         
         # Carga los datos del archivo CSV en el tableWidget
-        def cargarUsuariosCSV(self):
+        def cargarReservasCSV(self):
                 datos = self.leerDatosDesdeCSV()
 
                 if datos:
@@ -395,8 +385,8 @@ class ventanaListaReservas(object):
                             idH = QtWidgets.QTableWidgetItem(dato[1])
                             self.tablaListaReservas.setItem(i, 0, idH)
                             
-                            nombre = QtWidgets.QTableWidgetItem(dato[2])
-                            self.tablaListaReservas.setItem(i, 1, nombre)
+                            cant = QtWidgets.QTableWidgetItem(dato[2])
+                            self.tablaListaReservas.setItem(i, 1, cant)
                             
                             especie = QtWidgets.QTableWidgetItem(dato[3])
                             self.tablaListaReservas.setItem(i, 2, especie)
@@ -425,37 +415,100 @@ class ventanaListaReservas(object):
                 filasSeleccionada = self.tablaListaReservas.selectedIndexes()
                 fila_seleccionada = self.tablaListaReservas.currentRow()
                 estado = self.tablaListaReservas.item(fila_seleccionada, 4).text()
+                dias = self.tablaListaReservas.item(fila_seleccionada, 5).text()
                 if filasSeleccionada and estado == "En Check-in":
                         self.btnHacerCheckOut.setEnabled(False)
-                        self.btnModificar.setEnabled(True)
                         self.btnCancelar.setEnabled(True)
-                elif filasSeleccionada and estado == "En Habitación":
-                        self.btnHacerCheckOut.setEnabled(True)
-                        self.btnModificar.setEnabled(False)
+                elif filasSeleccionada and estado == "En Habitación" and int(dias) == 0:
+                        self.btnHacerCheckOut.setEnabled(False)
                         self.btnCancelar.setEnabled(False)
+                elif filasSeleccionada and estado == "En Habitación" and int(dias) > 0:
+                        self.btnHacerCheckOut.setEnabled(True)
+                        self.btnCancelar.setEnabled(False)
+                elif filasSeleccionada and estado == "Reservado":
+                        # No se seleccionó ninguna fila
+                        self.btnHacerCheckOut.setEnabled(False)
+                        self.btnCancelar.setEnabled(True)
                 else:
                         # No se seleccionó ninguna fila
                         self.btnHacerCheckOut.setEnabled(False)
-                        self.btnModificar.setEnabled(False)
                         self.btnCancelar.setEnabled(False)
-
-        def eliminarCliente(self, usuario_id):
+                        
+        def verReserva(self):
+                fila_seleccionada = self.tablaListaReservas.currentRow()
+                idHabitacion = self.tablaListaReservas.item(fila_seleccionada, 0).text()
+                cantidad = self.tablaListaReservas.item(fila_seleccionada, 1).text()
+                especie = self.tablaListaReservas.item(fila_seleccionada, 2).text()
+                fecha = self.tablaListaReservas.item(fila_seleccionada, 3).text()
+                estado = self.tablaListaReservas.item(fila_seleccionada, 4).text()
+                dias = self.tablaListaReservas.item(fila_seleccionada, 5).text()
+                datos = self.leerReservaLecturaCsv()
+                masc = []
+                for l in datos:
+                        if l[0] == self.cliente_id and str(l[1]) == idHabitacion and str(l[3]) == especie and str(l[4]) == fecha and str(l[6]) == dias:
+                                masc.append(l)
+                i = 1
+                mensaje = []
+                for a in masc:
+                        ms = ("Mascota N°" + str(i) + ". Nombre: " + a[2] + "\n")
+                        i = i + 1
+                        mensaje.append(ms)
+                if estado == "Reservado":
+                        msg = ("Esta reserva aún no se completa, por ende, se puede cancelar.")
+                elif estado == "En Check-in":
+                        msg = ("Esta reserva está realizando su check-in, por ende, ya no se puede cancelar.") 
+                elif estado == "En Habitación" and int(dias) == 0:
+                        msg = ("Esta reserva ya está en curso, pero lleva 0 dias, por ende, no se puede hacer checkout.")
+                elif estado == "En Habitación" and int(dias) > 0:
+                        msg = ("Esta reserva ya está en curso y lleva " + dias + "dias, por ende, se puede hacer checkout.")
+                else:
+                        msg = ("Esta reserva ya está finalizada, por ende, no se puede cancelar o hacer checkout, intente crear otra reserva...")
+                msg1 = QtWidgets.QMessageBox()
+                msg1.setWindowTitle("Reserva")
+                nombre = self.obtenerNombreCliente(self.cliente_id)
+                mensajes = '\n'.join(mensaje)
+                msg1.setText("Esta reserva está a nombre de " + str(nombre) + "\nCantidad de mascotas: " + cantidad + "\n\n" + mensajes + "\nEsta reserva empieza/empezó el " + fecha + "\n" + msg)
+                msg1.exec_()
+                
+        
+        def eliminarReserva(self):
                 # Obtener el índice de la fila seleccionada
                 fila_seleccionada = self.tablaListaReservas.currentRow()
-
+                idHabitacion = self.tablaListaReservas.item(fila_seleccionada, 0).text()
+                print(idHabitacion)
+                
+                datos = self.leerDatosDesdeCSV()
+                # Eliminar el usuario del archivo CSV
+                for l in datos:
+                    if l[0] == self.cliente_id:
+                        if str(l[1]) == idHabitacion:
+                           if l[5] == "None":
+                               Borrar = l
+                               break
+                if datos:
+                        reservasActualizadas = [fila for fila in datos if fila != Borrar]
+                with open('ArchivosCSV/Habitaciones.csv', 'w', newline='') as csvfile:
+                        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        writer.writerows(reservasActualizadas)
+                datos1 = self.leerReservaLecturaCsv()
+                Borra = []
+                for l in datos1:
+                    if l[0] == self.cliente_id:
+                        if str(l[1]) == idHabitacion:
+                           if l[5] == "None":
+                               Borra.append(l)
+                for a in Borra:
+                        print(str(a))
+                        if datos1:
+                                reservasActualizada = [fila for fila in datos1 if fila != a]
+                        with open('ArchivosCSV/ReservaLectura.csv', 'w', newline='') as csvfile:
+                                writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                                writer.writerows(reservasActualizada)
                 # Eliminar la fila de la tabla
                 self.tablaListaReservas.removeRow(fila_seleccionada)
-
-                # Eliminar el usuario del archivo CSV
-                datos = self.leerDatosDesdeCSV()
-                if datos:
-                        usuarios_actualizados = [fila for fila in datos if fila[0] != usuario_id]
-                with open('ArchivosCSV/Cliente.csv', 'w', newline='') as csvfile:
-                        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                        writer.writerows(usuarios_actualizados)
-
                 # Actualizar los botones
                 self.actualizarBotones()
+                self.cargarReservasCSV()
         
         
 

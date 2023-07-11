@@ -201,14 +201,14 @@ border-radius:15px;</string>
     <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>true</bool>
     </attribute>
-    <attribute name="horizontalHeaderMinimumSectionSize">
-     <number>117</number>
-    </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>129</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>117</number>
     </attribute>
     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
      <bool>false</bool>
@@ -384,6 +384,48 @@ border-radius: 12px;</string>
      <string>nombre del dueño</string>
     </property>
    </widget>
+   <widget class="QLabel" name="labelMascotasDe_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>540</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(79, 163, 166);
+border-radius: 12px;</string>
+    </property>
+    <property name="text">
+     <string>Fecha de Reserva:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="indent">
+     <number>162</number>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEdit">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>541</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>labelTitulo</zorder>
    <zorder>labelFotoPerrito</zorder>
    <zorder>BtnVerDatos</zorder>
@@ -395,6 +437,8 @@ border-radius: 12px;</string>
    <zorder>BtnNuevaMascota</zorder>
    <zorder>BtnAtras</zorder>
    <zorder>labelNombreDelPropietario</zorder>
+   <zorder>labelMascotasDe_2</zorder>
+   <zorder>dateEdit</zorder>
   </widget>
  </widget>
  <resources/>

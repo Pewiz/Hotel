@@ -17,6 +17,8 @@ class ventanaListaUsuarios(object):
         def setupUi(self, ListaUsuarios):
                 ListaUsuarios.setObjectName("ListaUsuarios")
                 ListaUsuarios.resize(802, 602)
+                ListaUsuarios.setMinimumSize(802, 602)
+                ListaUsuarios.setMaximumSize(802, 602)
                 font = QtGui.QFont()
                 font.setFamily("Arial")
                 ListaUsuarios.setFont(font)

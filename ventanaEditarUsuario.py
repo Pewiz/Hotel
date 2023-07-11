@@ -8,6 +8,8 @@ class ventanaEditarUsuario(object):
         def setupUi(self, EditarUsuario):
                 EditarUsuario.setObjectName("EditarUsuario")
                 EditarUsuario.resize(802, 602)
+                EditarUsuario.setMinimumSize(802, 602)
+                EditarUsuario.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 EditarUsuario.setWindowIcon(icon)

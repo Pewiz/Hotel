@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ventanaHabitaciones.ui'
+# Form implementation generated from reading ui file 'c:\Users\asus\OneDrive\Documentos\GitHub\Hotel\VentanasUI\ventanaHabitaciones.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -17,7 +17,7 @@ class Ui_Habitaciones(object):
         Habitaciones.setEnabled(True)
         Habitaciones.resize(802, 602)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\asus\\OneDrive\\Documentos\\GitHub\\Hotel\\VentanasUI\\../Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Habitaciones.setWindowIcon(icon)
         Habitaciones.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
         self.centralwidget = QtWidgets.QWidget(Habitaciones)
@@ -51,7 +51,7 @@ class Ui_Habitaciones(object):
 "}")
         self.BtnAtras.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\asus\\OneDrive\\Documentos\\GitHub\\Hotel\\VentanasUI\\../Recursos/FotoBtnAtras.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.BtnAtras.setIcon(icon1)
         self.BtnAtras.setIconSize(QtCore.QSize(50, 50))
         self.BtnAtras.setObjectName("BtnAtras")
@@ -231,6 +231,23 @@ class Ui_Habitaciones(object):
         self.spinBoxCantidad.setMinimum(1)
         self.spinBoxCantidad.setMaximum(20)
         self.spinBoxCantidad.setObjectName("spinBoxCantidad")
+        self.BtnMasHabitacion = QtWidgets.QPushButton(self.centralwidget)
+        self.BtnMasHabitacion.setGeometry(QtCore.QRect(730, 20, 41, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.BtnMasHabitacion.setFont(font)
+        self.BtnMasHabitacion.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.BtnMasHabitacion.setStyleSheet("QPushButton{\n"
+"    border-radius: 13px;\n"
+"    background-color: #4fa3a6;\n"
+"}\n"
+"QPushButton::hover {\n"
+"    background: rgb(181, 181, 181) ;\n"
+"}")
+        self.BtnMasHabitacion.setObjectName("BtnMasHabitacion")
         Habitaciones.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Habitaciones)
@@ -271,13 +288,4 @@ class Ui_Habitaciones(object):
         self.comboBoxTipoMascota.setItemText(3, _translate("Habitaciones", "Roedor"))
         self.comboBoxTipoMascota.setItemText(4, _translate("Habitaciones", "Otro"))
         self.labelCantidadMascota.setText(_translate("Habitaciones", "Cantidad de mascotas"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Habitaciones = QtWidgets.QMainWindow()
-    ui = Ui_Habitaciones()
-    ui.setupUi(Habitaciones)
-    Habitaciones.show()
-    sys.exit(app.exec_())
+        self.BtnMasHabitacion.setText(_translate("Habitaciones", "+"))

@@ -12,15 +12,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ventanaMostrarMascota(object):
-    def __init__(self, cliente_id, idHabitacion, nombre_mascota):
+    def __init__(self, cliente_id, idHabitacion, nombre_mascota, cantidad):
             self.cliente_id = cliente_id
             self.idHabitacion = idHabitacion
             self.nombre_mascota = nombre_mascota
+            self.cantidad = cantidad
                 
     def setupUi(self, MostrarMascota):
         
         MostrarMascota.setObjectName("MostrarMascota")
         MostrarMascota.resize(802, 602)
+        MostrarMascota.setMinimumSize(802, 602)
+        MostrarMascota.setMaximumSize(802, 602)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MostrarMascota.setWindowIcon(icon)
@@ -237,7 +240,7 @@ class ventanaMostrarMascota(object):
 
         from ventanaListaMascota import ventanaListaMascotas # Importación local para evitar el ciclo de importación
         self.ventanaAnterior = QtWidgets.QMainWindow(self.ventanaActual.parent())
-        self.uiVentanaAnterior = ventanaListaMascotas(self.cliente_id,self.idHabitacion)
+        self.uiVentanaAnterior = ventanaListaMascotas(self.cliente_id,self.idHabitacion,self.cantidad)
         self.uiVentanaAnterior.setupUi(self.ventanaAnterior)
         self.ventanaAnterior.show()
     

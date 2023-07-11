@@ -14,6 +14,7 @@ from ventanaMostrarDatosCliente import ventanaMostrarCliente
 from ventanaNuevoClinte import ventanaNuevoCliente
 from ventanaListaMascota import ventanaListaMascotas
 from ventanaListaReservas import ventanaListaReservas
+from ventanaBoletas import ventanaBoletas
 
 class ventanaListaCliente(object):
         def __init__(self, cliente_id, habitacion, cont):
@@ -23,6 +24,8 @@ class ventanaListaCliente(object):
         def setupUi(self, ListaCliente):
                 ListaCliente.setObjectName("ListaCliente")
                 ListaCliente.resize(802, 602)
+                ListaCliente.setMinimumSize(802, 602)
+                ListaCliente.setMaximumSize(802, 602)
                 font = QtGui.QFont()
                 font.setFamily("Arial")
                 ListaCliente.setFont(font)
@@ -39,7 +42,7 @@ class ventanaListaCliente(object):
                 self.BtnAtras.setStyleSheet("QPushButton {\n"
 "  \n"
 "    \n"
-"    background-color: rgb(0,0,0,0);\n"
+"    background-color: rgba(0,0,0,0);\n"
 "    border-radius: 20px;\n"
 "\n"
 "  \n"
@@ -221,6 +224,7 @@ class ventanaListaCliente(object):
                 self.cargarUsuariosCSV()
                 print(self.cont)
                 self.tablaListaClientes.itemSelectionChanged.connect(self.actualizarBotones)
+                self.tablaListaClientes.itemDoubleClicked.connect(lambda: self.cambiarVentana(ventanaBoletas, self.obtenerClienteSeleccionado()))
 
 
        
@@ -250,9 +254,30 @@ class ventanaListaCliente(object):
 
         def cambiarVentanaMasc(self, clase, cliente_id):
                 self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
-                self.uiVentanaActual.close()
                 self.nuevaVentana = QtWidgets.QMainWindow()
-                self.ui = clase(cliente_id, self.habitacion)  # Pasa el idCliente y el habitacion como parámetros
+                cantidad = 1
+                msg1 = QtWidgets.QMessageBox()
+                msg1.setWindowTitle("Confirmación.")
+                msg1.setText("Eliga cuantas mascotas desea ingresar a la reserva")
+                spinbox = QtWidgets.QSpinBox()
+                spinbox.setMinimum(1)
+                spinbox.setMaximum(int(self.habitacion[1]))
+                spinbox.setValue(cantidad)
+                
+                layout = QtWidgets.QVBoxLayout()
+                layout.addWidget(spinbox)
+                
+                widget = QtWidgets.QWidget()
+                widget.setLayout(layout)
+                msg1.layout().addWidget(widget)
+    
+                msg1.setStandardButtons(QtWidgets.QMessageBox.Yes)
+                msg1.accepted.connect(msg1.close)
+                msg1.exec_()
+                
+                cantidad = spinbox.value()
+                self.uiVentanaActual.close()
+                self.ui = clase(cliente_id, self.habitacion, cantidad)  # Pasa el idCliente y el habitacion como parámetros
                 self.ui.setupUi(self.nuevaVentana)
                 self.nuevaVentana.show()
                 

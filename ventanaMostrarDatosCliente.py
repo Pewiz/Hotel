@@ -20,6 +20,8 @@ class ventanaMostrarCliente(object):
         def setupUi(self, MostrarCliente):
             MostrarCliente.setObjectName("MostrarCliente")
             MostrarCliente.resize(802, 602)
+            MostrarCliente.setMinimumSize(802, 602)
+            MostrarCliente.setMaximumSize(802, 602)
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             MostrarCliente.setWindowIcon(icon)

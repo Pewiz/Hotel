@@ -18,6 +18,8 @@ class ventanaHabitaciones(object):
                 Habitaciones.setObjectName("Habitaciones")
                 Habitaciones.setEnabled(True)
                 Habitaciones.resize(802, 602)
+                Habitaciones.setMinimumSize(802, 602)
+                Habitaciones.setMaximumSize(802, 602)
                 icon = QtGui.QIcon()
                 icon.addPixmap(QtGui.QPixmap("Recursos/HotelMascota.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 Habitaciones.setWindowIcon(icon)
@@ -43,7 +45,7 @@ class ventanaHabitaciones(object):
                 self.BtnAtras.setStyleSheet("QPushButton {\n"
 "  \n"
 "    \n"
-"    background-color: rgb(0,0,0,0);\n"
+"    background-color: rgba(0,0,0,0);\n"
 "    border-radius: 20px;\n"
 "\n"
 "  \n"
@@ -67,6 +69,7 @@ class ventanaHabitaciones(object):
                 self.tablaHabitaciones = QtWidgets.QTableWidget(self.centralwidget)
                 self.tablaHabitaciones.setGeometry(QtCore.QRect(251, 110, 551, 421))
                 self.tablaHabitaciones.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+                self.tablaHabitaciones.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
                 self.tablaHabitaciones.setObjectName("tablaHabitaciones")
                 self.tablaHabitaciones.setColumnCount(5)
                 self.tablaHabitaciones.setRowCount(0)
@@ -272,7 +275,23 @@ class ventanaHabitaciones(object):
 
                 #Accion boton aceptar
                 self.BtnAceptar.clicked.connect(lambda: self.cambiarVentanaListaCliente(self.obtenerHabitacionSeleccionada()))
+                
+                #Boton Crear Habitaciones
+                self.BtnMasHabitacion = QtWidgets.QPushButton(self.centralwidget)
+                self.BtnMasHabitacion.setGeometry(QtCore.QRect(730, 20, 41, 41))
+                font = QtGui.QFont()
+                font.setFamily("Arial")
+                font.setPointSize(11)
+                font.setBold(True)
+                font.setWeight(75)
+                self.BtnMasHabitacion.setFont(font)
+                self.BtnMasHabitacion.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                self.BtnMasHabitacion.setStyleSheet("QPushButton{\n    border-radius: 13px;\n    background-color: #4fa3a6;\n}\nQPushButton::hover {\n    background: rgb(181, 181, 181) ;\n}")
+                self.BtnMasHabitacion.setObjectName("BtnMasHabitacion")
 
+                #Accion Boton Crear Habitaciones
+                self.BtnMasHabitacion.clicked.connect(self.crearHab)
+                
                 Habitaciones.setCentralWidget(self.centralwidget)
                 self.retranslateUi(Habitaciones)
                 QtCore.QMetaObject.connectSlotsByName(Habitaciones)
@@ -320,6 +339,7 @@ class ventanaHabitaciones(object):
                 self.comboBoxTipoMascota.setItemText(3, _translate("Habitaciones", "Roedor"))
                 self.comboBoxTipoMascota.setItemText(4, _translate("Habitaciones", "Otro"))
                 self.labelCantidadMascota.setText(_translate("Habitaciones", "Cantidad de mascotas"))
+                self.BtnMasHabitacion.setText(_translate("Habitaciones", "+"))
 
 
 
@@ -342,20 +362,24 @@ class ventanaHabitaciones(object):
                         for lista in reader:
                                 if idHabitacion[0] == lista[1]:
                                         habitacion = lista
-                fecha = datetime.datetime.strptime(habitacion[4], "%d/%m/%Y").date()
-                fechaHoy = datetime.datetime.now().date()
-                diferencia = fecha - fechaHoy
-                if diferencia <= datetime.timedelta(days=2):
-                        msg1 = QtWidgets.QMessageBox()
-                        msg1.setWindowTitle("Confirmación.")
-                        msg1.setText("La habitación esta a punto de ser reservada, en caso de elegir esta habitación, se hará checkout automatico el dia " + habitacion[4] + ".\n¿Desea realizar reserva a esta habitación?")
-                        msg1.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                        decision = msg1.exec_()
-                        if decision == QtWidgets.QMessageBox.No:    
-                                flag = False
-                        else:
-                                flag = True
-                        msg1.close()
+                                        det = False
+                                        break
+                        det = True
+                if det == False:
+                        fecha = datetime.datetime.strptime(habitacion[4], "%d/%m/%Y").date()
+                        fechaHoy = datetime.datetime.now().date()
+                        diferencia = fecha - fechaHoy
+                        if diferencia <= datetime.timedelta(days=2):
+                                msg1 = QtWidgets.QMessageBox()
+                                msg1.setWindowTitle("Confirmación.")
+                                msg1.setText("La habitación esta a punto de ser reservada, en caso de elegir esta habitación, se hará checkout automatico el dia " + habitacion[4] + ".\n¿Desea realizar reserva a esta habitación?")
+                                msg1.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                                decision = msg1.exec_()
+                                if decision == QtWidgets.QMessageBox.No:    
+                                        flag = False
+                                else:
+                                        flag = True
+                                msg1.close()
                 if flag == True:
                         self.uiVentanaActual = QtWidgets.QApplication.activeWindow()
                         self.uiVentanaActual.close()
@@ -393,6 +417,9 @@ class ventanaHabitaciones(object):
         def cargarHabitacionesCSV(self):
                 datos = self.leerDatosDesdeCSV()
                 fechaHoy = datetime.datetime.now().date()
+                fechaQDate = QtCore.QDate.currentDate()
+                self.dateEditDesde.setMinimumDate(fechaQDate)
+                self.dateEditDesde.setDate(fechaQDate)
                 with open('ArchivosCSV/Habitaciones.csv', "r", encoding="latin1") as w:
                                 lector = csv.reader(w, delimiter=",")
                                 habOcupadas = []
@@ -401,6 +428,7 @@ class ventanaHabitaciones(object):
                                                 habOcupadas.append(lista)
 
                 if datos:
+                        print(str(habOcupadas))
                         flag = True
                         self.maximo = 0
                         # Seleccionar las columnas "Id", "Capacidad", "Separada", "Tipo de Mascota" y "Precio Base" (columnas 0, 1, 2, 3 y 4)
@@ -533,7 +561,68 @@ class ventanaHabitaciones(object):
                                                 habitacion = row
                         return habitacion                      
         
+        def crearHab(self):
+                ventanaEmer = VentanaCrearHabitacion()
+                ventanaEmer.exec_()
+                self.cargarHabitacionesCSV()
+        
+class VentanaCrearHabitacion(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Crear Habitación")
+        self.setFixedSize(300, 200)
 
+        self.labelCapacidad = QtWidgets.QLabel("Capacidad:", self)
+        self.labelCapacidad.setGeometry(QtCore.QRect(20, 20, 100, 20))
+
+        self.scrollCapacidad = QtWidgets.QSpinBox(self)
+        self.scrollCapacidad.setGeometry(QtCore.QRect(130, 20, 50, 20))
+        self.scrollCapacidad.setMinimum(1)
+        self.scrollCapacidad.setMaximum(50)
+
+        self.checkBoxSeparada = QtWidgets.QCheckBox("Separada", self)
+        self.checkBoxSeparada.setGeometry(QtCore.QRect(20, 50, 100, 20))
+
+        self.labelTipoMascota = QtWidgets.QLabel("Tipo de Mascota:", self)
+        self.labelTipoMascota.setGeometry(QtCore.QRect(20, 80, 100, 20))
+
+        self.comboBoxTipoMascota = QtWidgets.QComboBox(self)
+        self.comboBoxTipoMascota.setGeometry(QtCore.QRect(130, 80, 150, 20))
+        self.comboBoxTipoMascota.addItem("Elegir")
+        self.comboBoxTipoMascota.addItem("Perro")
+        self.comboBoxTipoMascota.addItem("Gato")
+        self.comboBoxTipoMascota.addItem("Roedor")
+        self.comboBoxTipoMascota.addItem("Otro")
+
+        self.labelPrecioDia = QtWidgets.QLabel("Precio Día:", self)
+        self.labelPrecioDia.setGeometry(QtCore.QRect(20, 110, 100, 20))
+
+        self.lineEditPrecioDia = QtWidgets.QLineEdit(self)
+        self.lineEditPrecioDia.setGeometry(QtCore.QRect(130, 110, 100, 20))
+        self.lineEditPrecioDia.setValidator(QtGui.QIntValidator())
+        
+
+        self.buttonAceptar = QtWidgets.QPushButton("Aceptar", self)
+        self.buttonAceptar.setGeometry(QtCore.QRect(80, 150, 140, 30))
+        self.buttonAceptar.clicked.connect(self.crearHabitacion)
+
+    def crearHabitacion(self):
+        capacidad = self.scrollCapacidad.value()
+        separada = self.checkBoxSeparada.isChecked()
+        tipoMascota = self.comboBoxTipoMascota.currentText()
+        precioDia = self.lineEditPrecioDia.text()
+        import random
+        id = random.randint(1, 9999)
+        if precioDia != "" and self.comboBoxTipoMascota.currentIndex() > 0:
+                habitacion = [str(id), str(capacidad), str(separada), str(tipoMascota), str(precioDia)]
+                with open('ArchivosCSV/Habitacion.csv', 'a', newline='') as file:
+                        writer = csv.writer(file)
+                        writer.writerow(habitacion)
+                QtWidgets.QMessageBox.information(self, "Exito", "La habitacion se ha creado correctamente.")
+                self.close()
+        else:
+                QtWidgets.QMessageBox.warning(self, "Error", "Revise correctamente los datos ingresados.")
+        
 
         
         

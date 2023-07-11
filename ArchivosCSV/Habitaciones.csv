@@ -1,5 +1,8 @@
 ID Cliente,ID Habitacion,Cantidad,Especie,Fecha Inicio,Fecha Termino,Dias
 743,458,2,Perro,01/01/2000,06/07/2023,8587
-6745,653,2,Perro,03/06/2023,None,32
-6745,32314,1,Perro,02/06/2023,None,33
+6745,653,2,Perro,03/06/2023,None,37
+6745,32314,1,Perro,02/06/2023,None,38
 743,458,1,Perro,10/07/2023,None,0
+743,546,1,Gato,10/07/2023,None,0
+743,37456,1,Roedor,10/07/2023,None,0
+6745,86420,1,Gato,11/07/2023,None,0
