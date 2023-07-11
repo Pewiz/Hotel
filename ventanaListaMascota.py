@@ -384,7 +384,7 @@ class ventanaListaMascotas(object):
         bandera = True
         for mascota in mascotas:
             for reserva in reservas:
-                if mascota[1] == reserva[2]:
+                if mascota[1] == reserva[2] and reserva[0] == self.cliente_id:
                     if reserva[5] == "None" and datetime.datetime.strptime(reserva[4], "%d/%m/%Y").date() <= datetime.datetime.now().date():
                         bandera = False
                         break
@@ -471,7 +471,6 @@ class ventanaListaMascotas(object):
         # Obtener el índice de la fila seleccionada
         usuario_id = self.obtenerIdSeleccionado()
         nombre_mascota = self.obtenerMascotaSeleccionada()
-        print(nombre_mascota," a ", usuario_id)
 
         fila_seleccionada = self.tablaListaMascotas.currentRow()
 

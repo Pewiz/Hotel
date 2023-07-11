@@ -6,3 +6,5 @@ ID Cliente,ID Habitacion,Cantidad,Especie,Fecha Inicio,Fecha Termino,Dias
 743,546,1,Gato,10/07/2023,None,0
 743,37456,1,Roedor,10/07/2023,None,0
 6745,86420,1,Gato,11/07/2023,None,0
+2337,12345,1,Gato,11/07/2023,None,0
+2337,10101,1,Perro,11/07/2023,None,0

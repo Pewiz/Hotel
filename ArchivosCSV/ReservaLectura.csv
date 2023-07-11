@@ -8,3 +8,6 @@ ID Cliente,ID Habitacion,Nombre Mascota,Especie,Fecha Inicio,Fecha Termino,Dias
 743,546,Nora,Gato,10/07/2023,None,0
 743,37456,Cuddles,Roedor,10/07/2023,None,0
 6745,86420,Bobby,Gato,11/07/2023,None,0
+2337,12345,a,Gato,11/07/2023,None,0
+2337,10101,Pale,Perro,11/07/2023,None,0
+2337,10101,Bobby,Perro,11/07/2023,None,0

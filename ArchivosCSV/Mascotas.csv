@@ -11,3 +11,5 @@ ID Cliente,Nombre,Especie,Raza,Fecha Nacimiento,Sexo,Size,Peso
 743,Nora,Gato,Angora,03-06-2023,Hembra,Muy Pequeno,2
 6745,Bobby,Gato,Angora,04-07-2017,Hembra,Mediano,6
 2337,a,Gato,a,04-01-2000,Hembra,Muy Pequeno,1
+2337,Pale,Perro,Siberiano,21-04-2019,Macho,Muy Grande,19
+2337,Bobby,Perro,Chihuahua,31-12-2020,Macho,Muy Pequeno,2

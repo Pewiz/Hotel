@@ -418,7 +418,7 @@ class ventanaListaReservas(object):
                 dias = self.tablaListaReservas.item(fila_seleccionada, 5).text()
                 if filasSeleccionada and estado == "En Check-in":
                         self.btnHacerCheckOut.setEnabled(False)
-                        self.btnCancelar.setEnabled(True)
+                        self.btnCancelar.setEnabled(False)
                 elif filasSeleccionada and estado == "En Habitación" and int(dias) == 0:
                         self.btnHacerCheckOut.setEnabled(False)
                         self.btnCancelar.setEnabled(False)
@@ -507,8 +507,9 @@ class ventanaListaReservas(object):
                 # Eliminar la fila de la tabla
                 self.tablaListaReservas.removeRow(fila_seleccionada)
                 # Actualizar los botones
-                self.actualizarBotones()
                 self.cargarReservasCSV()
+                self.btnCancelar.setEnabled(False)
+                self.btnHacerCheckOut.setEnabled(False)
         
         
 
